@@ -77,6 +77,15 @@ const resources: LearningResource[] = [
     color: '#0e1128',
     category: 'Game Development',
   },
+  {
+    id: 'dsa-visualizer',
+    name: 'DSA Algorithm Visualizer',
+    url: 'https://algovizvps.vercel.app/',
+    description: 'Interactive visualizations for data structures and algorithms',
+    icon: '🧩',
+    color: '#FF5722',
+    category: 'Algorithms',
+  },
 ];
 
 export default function Home() {
