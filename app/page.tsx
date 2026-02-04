@@ -86,6 +86,15 @@ const resources: LearningResource[] = [
     color: '#FF5722',
     category: 'Algorithms',
   },
+  {
+    id: 'github-visualizer',
+    name: 'GitHub Visualizer',
+    url: 'https://github-visualizer-olive.vercel.app',
+    description: 'Beautifully visualize your GitHub contributions and activity',
+    icon: '📊',
+    color: '#24292e',
+    category: 'Visualization',
+  },
 ];
 
 export default function Home() {
