@@ -1,5 +1,5 @@
 #  Learning Hub
-#📚🎓🏫👨🏻‍🎓🎒🏛️
+📚🎓🏫👨🏻‍🎓🎒🏛️
 
 ![Project Badge](https://img.shields.io/badge/Status-Active-success)
 ![Next.js](https://img.shields.io/badge/Next.js-15.0-black)
