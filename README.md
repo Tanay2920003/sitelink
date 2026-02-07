@@ -70,6 +70,8 @@ We welcome contributions! You don't need to be a terminal expert to help out.
 
 ### 📝 Edit via Web Interface (Easiest for quick fixes)
 <img width="618" height="134" alt="image" src="https://github.com/user-attachments/assets/a055f486-b64a-4aaf-82af-5665bf312299" />
+
+#steps
 For small changes like fixing typos or adding a new link:
 1. Navigate to the file you want to change (e.g., `app/page.tsx`).
 2. Click the **Edit** (pencil icon) button at the top right.
