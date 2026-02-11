@@ -6,7 +6,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-A stunning, responsive directory of premium developer learning resources. SiteLink aggregates top-tier platforms like Roadmap.sh, W3Schools, Web.dev, and Microsoft Learn into a beautiful, unified interface with a card-based design.
+A stunning, responsive directory of premium developer learning resources. Learning Hub aggregates top-tier platforms like Roadmap.sh, W3Schools, Web.dev, and Microsoft Learn into a beautiful, unified interface with a card-based design.
 
 ## ✨ Features
 
@@ -25,11 +25,11 @@ A stunning, responsive directory of premium developer learning resources. SiteLi
 
 ## 🚀 Getting Started
 
-You can set up SiteLink using a one-click deployment or manually via the terminal.
+You can set up Learning Hub using a one-click deployment or manually via the terminal.
 
 ### 🌐 One-Click Deploy (Easiest)
 
-Deploy your own copy of SiteLink to Vercel in seconds:
+Deploy your own copy of Learning Hub to Vercel in seconds:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTanay2920003%2Fsitelink)
 [![Watch Tutorial](https://img.shields.io/badge/Watch-Tutorial-red?style=for-the-badge&logo=youtube)](https://youtu.be/v2X51AVgl3o?t=221)

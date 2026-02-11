@@ -1,6 +1,6 @@
-# Contributing to SiteLink
+# Contributing to Learning Hub
 
-First off, thank you for considering contributing to SiteLink! It's people like you who make SiteLink such a great tool.
+First off, thank you for considering contributing to Learning Hub! It's people like you who make Learning Hub such a great tool.
 
 ## How Can I Contribute?
 
@@ -30,6 +30,6 @@ First off, thank you for considering contributing to SiteLink! It's people like 
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [SiteLink Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by the [Learning Hub Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 Thank you!
