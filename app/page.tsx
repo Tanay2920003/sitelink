@@ -6,7 +6,8 @@ import styles from './page.module.css';
 interface LearningResource {
   id: string;
   name: string;
-  url: string;
+  url?: string; // Single URL (optional if urls is provided)
+  urls?: { label: string; url: string }[]; // Multiple URLs with labels
   description: string;
   icon: string;
   color: string;
@@ -22,6 +23,14 @@ const resources: LearningResource[] = [
     icon: '🗺️',
     color: '#667eea',
     category: 'Career Planning',
+  }, {
+    id: 'youtube-tutorials',
+    name: 'YouTube Tutorials',
+    url: '/youtube-tutorials',
+    description: 'Curated video playlists for all topics: DSA, System Design, Web Dev, and more',
+    icon: '▶️',
+    color: '#FF0000',
+    category: 'Video Courses',
   },
   {
     id: 'w3schools',
@@ -95,10 +104,55 @@ const resources: LearningResource[] = [
     color: '#24292e',
     category: 'Visualization',
   },
+  {
+    id: 'cyfrin-updraft',
+    name: 'Cyfrin Updraft',
+    url: 'https://updraft.cyfrin.io/',
+    description: 'Learn blockchain and Web3 development with comprehensive courses on Solidity, smart contracts, and decentralized applications',
+    icon: '⛓️',
+    color: '#8B5CF6',
+    category: 'Blockchain & Web3',
+  },
+  {
+    id: 'competitive-programming',
+    name: 'Competitive Programming',
+    urls: [
+      { label: 'LeetCode', url: 'https://leetcode.com/' },
+      { label: 'Codeforces', url: 'https://codeforces.com/' },
+      { label: 'GeeksforGeeks', url: 'https://www.geeksforgeeks.org/' },
+    ],
+    description: 'Practice coding problems and improve your algorithmic skills across multiple competitive programming platforms',
+    icon: '🏆',
+    color: '#FFA116',
+    category: 'Competitive Programming',
+  },
 ];
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Group resources by category
+  const groupedResources = resources.reduce((acc, resource) => {
+    if (!acc[resource.category]) {
+      acc[resource.category] = [];
+    }
+    acc[resource.category].push(resource);
+    return acc;
+  }, {} as Record<string, LearningResource[]>);
+
+  const categories = Object.keys(groupedResources).sort((a, b) => {
+    // "Career Planning" always comes first
+    if (a === 'Career Planning') return -1;
+    if (b === 'Career Planning') return 1;
+    // Sort the rest alphabetically
+    return a.localeCompare(b);
+  });
+
+  // Helper to get an icon for the category (using the icon of the first resource as a proxy or default)
+  const getCategoryIcon = (category: string) => {
+    const resource = groupedResources[category][0];
+    return resource ? resource.icon : '📂';
+  };
 
   return (
     <div className={styles.container}>
@@ -121,9 +175,17 @@ export default function Home() {
         </div>
 
         <div className={styles.sidebarContent}>
-          <p className={styles.sidebarDescription}>
-            Curated collection of the best learning resources for developers. Click any card to start learning!
-          </p>
+          {categories.map((category) => (
+            <a
+              key={category}
+              href={`#${category}`}
+              className={styles.sidebarLink}
+              onClick={() => setIsSidebarOpen(false)} // Close on mobile click
+            >
+              <span>{getCategoryIcon(category)}</span>
+              <span>{category}</span>
+            </a>
+          ))}
         </div>
 
         <div className={styles.sidebarFooter}>
@@ -142,33 +204,115 @@ export default function Home() {
         </div>
 
         <div className={styles.cardsGrid}>
-          {resources.map((resource) => (
-            <a
-              key={resource.id}
-              href={resource.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.resourceCard}
-              style={{
-                '--card-color': resource.color,
-              } as React.CSSProperties}
-            >
-              <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>{resource.icon}</span>
-                <span className={styles.cardCategory}>{resource.category}</span>
-              </div>
-              <h3 className={styles.cardTitle}>{resource.name}</h3>
-              <p className={styles.cardDescription}>{resource.description}</p>
-              <div className={styles.cardFooter}>
-                <span className={styles.cardLink}>
-                  Open Resource
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </div>
-            </a>
-          ))}
+          {categories.flatMap((category) =>
+            groupedResources[category].map((resource, index) => {
+              const navId = index === 0 ? category : undefined;
+              const hasMultipleUrls = resource.urls && resource.urls.length > 0;
+              const singleUrl = resource.url || '';
+              const isInternal = singleUrl.startsWith('/');
+
+              // For resources with multiple URLs, render as div instead of anchor
+              const CardWrapper = hasMultipleUrls ? 'div' : 'a';
+              const cardProps = hasMultipleUrls
+                ? {}
+                : {
+                  href: singleUrl,
+                  target: isInternal ? '_self' : '_blank',
+                  rel: isInternal ? undefined : 'noopener noreferrer',
+                };
+
+              return (
+                <CardWrapper
+                  key={resource.id}
+                  id={navId}
+                  className={styles.card}
+                  style={{
+                    scrollMarginTop: navId ? '8rem' : undefined,
+                  } as React.CSSProperties}
+                  {...cardProps}
+                >
+                  <div className={styles.cardHeader}>
+                    <span
+                      className={styles.difficultyBadge}
+                      style={{
+                        borderColor: resource.color,
+                        color: '#e4e4e7',
+                        background: `${resource.color}25`,
+                      }}
+                    >
+                      {resource.category}
+                    </span>
+                    <span
+                      className={styles.languageBadge}
+                      style={{ fontSize: '1.2rem', background: 'rgba(255,255,255,0.05)' }}
+                    >
+                      {resource.icon}
+                    </span>
+                  </div>
+                  <h3 className={styles.cardTitle}>{resource.name}</h3>
+                  <p className={styles.cardDescription}>{resource.description}</p>
+                  <div className={styles.cardFooter}>
+                    <div className={styles.stats}></div>
+                    {hasMultipleUrls ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
+                        {resource.urls!.map((urlItem, idx) => {
+                          // Platform-specific solid colors
+                          const platformColors: Record<string, string> = {
+                            'LeetCode': '#FFA116',
+                            'Codeforces': '#1F8ACB',
+                            'GeeksforGeeks': '#2F8D46',
+                          };
+
+                          const buttonColor = platformColors[urlItem.label] || resource.color;
+
+                          return (
+                            <a
+                              key={urlItem.url}
+                              href={urlItem.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles.watchButton}
+                              style={{
+                                backgroundColor: buttonColor,
+                                boxShadow: `0 6px 20px ${buttonColor}50`,
+                                width: '100%',
+                                justifyContent: 'center',
+                                padding: '0.75rem 1.5rem',
+                                fontSize: '0.95rem',
+                                fontWeight: 700,
+                                transform: 'scale(1)',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'scale(1.02)';
+                                e.currentTarget.style.boxShadow = `0 8px 25px ${buttonColor}70`;
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = `0 6px 20px ${buttonColor}50`;
+                              }}
+                            >
+                              {urlItem.label}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <span
+                        className={styles.watchButton}
+                        style={{
+                          backgroundColor: resource.color,
+                          boxShadow: `0 4px 12px ${resource.color}40`,
+                        }}
+                      >
+                        Open Resource
+                      </span>
+                    )}
+                  </div>
+                </CardWrapper>
+              );
+            })
+          )}
         </div>
       </main>
 

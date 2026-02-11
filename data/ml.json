@@ -1,0 +1,48 @@
+{
+    "name": "Machine Learning",
+    "slug": "ml",
+    "description": "From ML fundamentals to deep learning and AI applications",
+    "icon": "🤖",
+    "playlists": [
+        {
+            "title": "Machine Learning Specialization",
+            "creator": "Andrew Ng (Stanford)",
+            "url": "https://www.youtube.com/playlist?list=PLkDaE6sCZn6FNC6YRfRQc_FbeQrF8BwGI",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 60,
+            "description": "The classic ML course by Andrew Ng, foundational knowledge",
+            "year": 2022
+        },
+        {
+            "title": "Deep Learning Specialization",
+            "creator": "Andrew Ng (DeepLearning.AI)",
+            "url": "https://www.youtube.com/playlist?list=PLkDaE6sCZn6Ec-XTbcX1uRg2_u4xOEky0",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 175,
+            "description": "Comprehensive deep learning course covering neural networks",
+            "year": 2021
+        },
+        {
+            "title": "Machine Learning with Python",
+            "creator": "Krish Naik",
+            "url": "https://www.youtube.com/playlist?list=PLZoTAELRMXVPBTrWtJkn3wWQxZkmTXGwe",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 75,
+            "description": "Practical ML with Python, scikit-learn, and real datasets",
+            "year": 2020
+        },
+        {
+            "title": "PyTorch Tutorial",
+            "creator": "Patrick Loeber",
+            "url": "https://www.youtube.com/playlist?list=PLqnslRFeH2UrcDBWF5mfPGpqQDSta6VK4",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 16,
+            "description": "Complete PyTorch deep learning framework tutorial",
+            "year": 2021
+        }
+    ]
+}

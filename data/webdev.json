@@ -1,0 +1,68 @@
+{
+    "name": "Web Development",
+    "slug": "webdev",
+    "description": "Frontend, backend, and full-stack web development resources",
+    "icon": "🌐",
+    "playlists": [
+        {
+            "title": "HTML & CSS Full Course",
+            "creator": "SuperSimpleDev",
+            "url": "https://www.youtube.com/watch?v=G3e-cpL7ofc",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Modern HTML & CSS from scratch in one comprehensive video",
+            "year": 2023
+        },
+        {
+            "title": "JavaScript Tutorial Full Course",
+            "creator": "Bro Code",
+            "url": "https://www.youtube.com/watch?v=lfmg-EJ8gm4",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Complete JavaScript course for beginners",
+            "year": 2023
+        },
+        {
+            "title": "React JS Course",
+            "creator": "Chai aur Code",
+            "url": "https://www.youtube.com/playlist?list=PLu71SKxNbfoDqgPchmvIsL4hTnJIrtige",
+            "language": "Hindi",
+            "difficulty": "intermediate",
+            "videoCount": 27,
+            "description": "React from basics to advanced with real projects",
+            "year": 2024
+        },
+        {
+            "title": "Node.js Tutorial",
+            "creator": "The Net Ninja",
+            "url": "https://www.youtube.com/playlist?list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 12,
+            "description": "Node.js crash course for building backend applications",
+            "year": 2020
+        },
+        {
+            "title": "MERN Stack Course",
+            "creator": "Traversy Media",
+            "url": "https://www.youtube.com/playlist?list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 8,
+            "description": "Full-stack MERN development from start to finish",
+            "year": 2021
+        },
+        {
+            "title": "Next.js Full Course",
+            "creator": "JavaScript Mastery",
+            "url": "https://www.youtube.com/watch?v=wm5gMKuwSYk",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 1,
+            "description": "Modern Next.js 14 with App Router and Server Actions",
+            "year": 2024
+        }
+    ]
+}

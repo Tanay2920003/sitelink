@@ -1,0 +1,48 @@
+{
+    "name": "Database Management",
+    "slug": "dbms",
+    "description": "Master databases from relational to NoSQL systems",
+    "icon": "🗄️",
+    "playlists": [
+        {
+            "title": "DBMS Complete Course",
+            "creator": "Gate Smashers",
+            "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y",
+            "language": "Hindi",
+            "difficulty": "beginner",
+            "videoCount": 85,
+            "description": "GATE-focused DBMS concepts in Hindi",
+            "year": 2021
+        },
+        {
+            "title": "SQL Tutorial for Beginners",
+            "creator": "Programming with Mosh",
+            "url": "https://www.youtube.com/watch?v=7S_tz1z_5bA",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Complete SQL course in one video",
+            "year": 2019
+        },
+        {
+            "title": "MongoDB Complete Course",
+            "creator": "Academind",
+            "url": "https://www.youtube.com/playlist?list=PL55RiY5tL51Dii7WshvSLAvk0NP2sMSPY",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 11,
+            "description": "NoSQL MongoDB fundamentals and advanced queries",
+            "year": 2020
+        },
+        {
+            "title": "PostgreSQL Tutorial",
+            "creator": "Amigoscode",
+            "url": "https://www.youtube.com/watch?v=qw--VYLpxG4",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 1,
+            "description": "PostgreSQL crash course with practical examples",
+            "year": 2021
+        }
+    ]
+}

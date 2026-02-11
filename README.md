@@ -52,8 +52,8 @@ Follow these steps to set up the project manually.
 #### Installation
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Tanay2920003/sitelink.git
-   cd sitelink
+   git clone https://github.com/Tanay2920003/Learning-hub.git
+   cd Learning-hub
    ```
 2. **Install dependencies**
    ```bash

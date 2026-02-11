@@ -1,0 +1,58 @@
+{
+    "name": "Python",
+    "slug": "python",
+    "description": "Learn Python from basics to advanced topics with these hand-picked playlists",
+    "icon": "🐍",
+    "playlists": [
+        {
+            "title": "Python for Everybody",
+            "creator": "freeCodeCamp",
+            "url": "https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 14,
+            "description": "Dr. Chuck's famous Python course for absolute beginners",
+            "year": 2020
+        },
+        {
+            "title": "Python Tutorial for Beginners",
+            "creator": "Corey Schafer",
+            "url": "https://www.youtube.com/playlist?list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 27,
+            "description": "Comprehensive Python basics with real-world examples",
+            "year": 2019
+        },
+        {
+            "title": "Python OOP Tutorial",
+            "creator": "Corey Schafer",
+            "url": "https://www.youtube.com/playlist?list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 6,
+            "description": "Object-oriented programming in Python explained clearly",
+            "year": 2019
+        },
+        {
+            "title": "Python in One Video",
+            "creator": "Code With Harry",
+            "url": "https://www.youtube.com/watch?v=7wnove7K-ZQ",
+            "language": "Hindi",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Complete Python crash course in Hindi",
+            "year": 2021
+        },
+        {
+            "title": "Advanced Python",
+            "creator": "Tech With Tim",
+            "url": "https://www.youtube.com/playlist?list=PLzMcBGfZo4-kwmIcMDdXSuy_wSqtU-xDP",
+            "language": "English",
+            "difficulty": "advanced",
+            "videoCount": 17,
+            "description": "Advanced Python concepts including decorators, generators, and more",
+            "year": 2021
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "name": "Operating Systems",
+    "slug": "os",
+    "description": "Understand how operating systems work under the hood",
+    "icon": "💻",
+    "playlists": [
+        {
+            "title": "Operating Systems",
+            "creator": "Neso Academy",
+            "url": "https://www.youtube.com/playlist?list=PLBlnK6fEyqRiVhbXDGLXDk_OQAeuVcp2O",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 102,
+            "description": "Complete OS course covering processes, memory, and file systems",
+            "year": 2020
+        },
+        {
+            "title": "Operating System (Hindi)",
+            "creator": "Gate Smashers",
+            "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p",
+            "language": "Hindi",
+            "difficulty": "beginner",
+            "videoCount": 91,
+            "description": "GATE-focused OS concepts explained in Hindi",
+            "year": 2021
+        },
+        {
+            "title": "MIT 6.S081 Operating System Engineering",
+            "creator": "MIT OpenCourseWare",
+            "url": "https://www.youtube.com/playlist?list=PLTsf9UeqkReZHXWY9yJvTwLJWYYPcKEqK",
+            "language": "English",
+            "difficulty": "advanced",
+            "videoCount": 23,
+            "description": "MIT's xv6 OS course with hands-on assignments",
+            "year": 2020
+        }
+    ]
+}

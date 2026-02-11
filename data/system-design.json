@@ -1,0 +1,38 @@
+{
+    "name": "System Design",
+    "slug": "system-design",
+    "description": "Learn to design scalable systems and ace system design interviews",
+    "icon": "🏗️",
+    "playlists": [
+        {
+            "title": "System Design Primer",
+            "creator": "Gaurav Sen",
+            "url": "https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 30,
+            "description": "Core system design concepts explained with drawings",
+            "year": 2020
+        },
+        {
+            "title": "System Design Interview",
+            "creator": "TECH DOSE",
+            "url": "https://www.youtube.com/playlist?list=PLVBmR2gZOquWJL7LzVJRmVCzZTtKhSNB_",
+            "language": "English",
+            "difficulty": "intermediate",
+            "videoCount": 27,
+            "description": "Common system design interview questions explained",
+            "year": 2021
+        },
+        {
+            "title": "Designing Data-Intensive Applications",
+            "creator": "Hussein Nasser",
+            "url": "https://www.youtube.com/playlist?list=PLQnljOFTspQXOkIpdwjsMlVqkIffdqZ2K",
+            "language": "English",
+            "difficulty": "advanced",
+            "videoCount": 20,
+            "description": "Deep dives into data systems architecture",
+            "year": 2022
+        }
+    ]
+}

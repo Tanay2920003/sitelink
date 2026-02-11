@@ -1,0 +1,58 @@
+{
+    "name": "Data Structures & Algorithms",
+    "slug": "dsa",
+    "description": "Master the fundamentals of computer science with curated DSA playlists",
+    "icon": "📊",
+    "playlists": [
+        {
+            "title": "Striver's A2Z DSA Course",
+            "creator": "take U forward",
+            "url": "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 456,
+            "description": "Complete DSA roadmap from arrays to graphs with problem-solving",
+            "year": 2023
+        },
+        {
+            "title": "DSA in Java",
+            "creator": "Kunal Kushwaha",
+            "url": "https://www.youtube.com/playlist?list=PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 59,
+            "description": "DSA fundamentals with Java implementation, beginner-friendly",
+            "year": 2022
+        },
+        {
+            "title": "C++ & DSA Complete Course",
+            "creator": "Apna College",
+            "url": "https://www.youtube.com/playlist?list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ",
+            "language": "Hindi",
+            "difficulty": "beginner",
+            "videoCount": 186,
+            "description": "C++ programming and DSA from scratch in Hindi",
+            "year": 2022
+        },
+        {
+            "title": "Advanced Algorithms",
+            "creator": "Abdul Bari",
+            "url": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O",
+            "language": "English",
+            "difficulty": "advanced",
+            "videoCount": 83,
+            "description": "Deep dive into algorithms with mathematical analysis",
+            "year": 2018
+        },
+        {
+            "title": "Dynamic Programming Patterns",
+            "creator": "Aditya Verma",
+            "url": "https://www.youtube.com/playlist?list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go",
+            "language": "Hindi",
+            "difficulty": "intermediate",
+            "videoCount": 54,
+            "description": "Master DP with pattern-based approach",
+            "year": 2020
+        }
+    ]
+}
