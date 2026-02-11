@@ -6,13 +6,13 @@ First off, thank you for considering contributing to Learning Hub! It's people l
 
 ### Reporting Bugs
 
-- **Check if the bug has already been reported** by searching on GitHub under [Issues](https://github.com/Tanay2920003/sitelink/issues).
-- If you can't find an open issue addressing the problem, [open a new one](https://github.com/Tanay2920003/sitelink/issues/new). Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
+- **Check if the bug has already been reported** by searching on GitHub under [Issues](https://github.com/Tanay2920003/Learning-hub/issues).
+- If you can't find an open issue addressing the problem, [open a new one](https://github.com/Tanay2920003/Learning-hub/issues/new). Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
 
 ### Suggesting Enhancements
 
-- **Check if the enhancement has already been suggested** by searching on GitHub under [Issues](https://github.com/Tanay2920003/sitelink/issues).
-- If you have a new idea, [open a new issue](https://github.com/Tanay2920003/sitelink/issues/new) and describe your suggestion in detail.
+- **Check if the enhancement has already been suggested** by searching on GitHub under [Issues](https://github.com/Tanay2920003/Learning-hub/issues).
+- If you have a new idea, [open a new issue](https://github.com/Tanay2920003/Learning-hub/issues/new) and describe your suggestion in detail.
 
 ### Pull Requests
 

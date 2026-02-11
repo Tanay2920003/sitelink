@@ -31,7 +31,7 @@ You can set up Learning Hub using a one-click deployment or manually via the ter
 
 Deploy your own copy of Learning Hub to Vercel in seconds:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTanay2920003%2Fsitelink)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTanay2920003%2FLearning-hub)
 [![Watch Tutorial](https://img.shields.io/badge/Watch-Tutorial-red?style=for-the-badge&logo=youtube)](https://youtu.be/v2X51AVgl3o?t=221)
 
 ### 🖥️ GUI Setup (GitHub Desktop)
@@ -92,7 +92,7 @@ For more details, please read our [Contributing Guidelines](CONTRIBUTING.md).
 ## 📂 Project Structure
 
 ```
-sitelink/
+Learning-hub/
 ├── app/
 │   ├── layout.tsx       # Global root layout
 │   ├── page.tsx         # Main page with resource data
@@ -104,10 +104,10 @@ sitelink/
 
 ## ✨ Contributors
 
-Thank you to everyone who helps improve SiteLink!
+Thank you to everyone who helps improve Learning Hub!
 
-<a href="https://github.com/Tanay2920003/sitelink/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Tanay2920003/sitelink" alt="Contributors" />
+<a href="https://github.com/Tanay2920003/Learning-hub/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Tanay2920003/Learning-hub" alt="Contributors" />
 </a>
 
 ---
