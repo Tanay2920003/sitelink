@@ -47,3 +47,72 @@ jobs:
           else
             echo "No test script found, skipping..."
           fi
+
+  changed-files-analysis:
+    name: 📊 Changed Files Analysis
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed
+        run: |
+          FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "count=$(echo "$FILES" | grep -c '[^[:space:]]')" >> $GITHUB_OUTPUT
+
+      - name: Analyze changes
+        id: analysis
+        run: |
+          FILES="${{ steps.changed.outputs.files }}"
+
+          # Categorize files
+          SRC=$(echo "$FILES" | grep -E '\.(tsx?|jsx?)$' | grep -v '\.test\.|\.spec\.|__tests__' || true)
+          STYLES=$(echo "$FILES" | grep -E '\.(css|scss|sass)$' || true)
+          CONFIG=$(echo "$FILES" | grep -E '(\.config\.|\.env|package\.json|tsconfig|next\.config|\.eslint|\.prettier)' || true)
+          TESTS=$(echo "$FILES" | grep -E '(\.test\.|\.spec\.|__tests__)' || true)
+          DOCS=$(echo "$FILES" | grep -E '\.(md|mdx|txt)$' || true)
+          ASSETS=$(echo "$FILES" | grep -E '\.(png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot)$' || true)
+          CI_CD=$(echo "$FILES" | grep -E '(\.github/|\.husky/)' || true)
+
+          count_lines() { echo "$1" | grep -c '[^[:space:]]' 2>/dev/null || echo 0; }
+
+          SRC_COUNT=$(count_lines "$SRC")
+          STYLES_COUNT=$(count_lines "$STYLES")
+          CONFIG_COUNT=$(count_lines "$CONFIG")
+          TESTS_COUNT=$(count_lines "$TESTS")
+          DOCS_COUNT=$(count_lines "$DOCS")
+          ASSETS_COUNT=$(count_lines "$ASSETS")
+          CI_CD_COUNT=$(count_lines "$CI_CD")
+
+          # Build the comment body
+          BODY="## 📊 Changed Files Analysis\n\n"
+          BODY+="**Total files changed:** ${{ steps.changed.outputs.count }}\n\n"
+          BODY+="| Category | Count | Files |\n"
+          BODY+="|----------|-------|-------|\n"
+
+          format_files() { echo "$1" | grep '[^[:space:]]' | sed 's/^/`/;s/$/`/' | paste -sd', ' - || echo "-"; }
+
+          [ "$SRC_COUNT" -gt 0 ] && BODY+="| 📝 Source Code | $SRC_COUNT | $(format_files "$SRC") |\n"
+          [ "$STYLES_COUNT" -gt 0 ] && BODY+="| 🎨 Styles | $STYLES_COUNT | $(format_files "$STYLES") |\n"
+          [ "$CONFIG_COUNT" -gt 0 ] && BODY+="| ⚙️ Config | $CONFIG_COUNT | $(format_files "$CONFIG") |\n"
+          [ "$TESTS_COUNT" -gt 0 ] && BODY+="| 🧪 Tests | $TESTS_COUNT | $(format_files "$TESTS") |\n"
+          [ "$DOCS_COUNT" -gt 0 ] && BODY+="| 📚 Docs | $DOCS_COUNT | $(format_files "$DOCS") |\n"
+          [ "$ASSETS_COUNT" -gt 0 ] && BODY+="| 🖼️ Assets | $ASSETS_COUNT | $(format_files "$ASSETS") |\n"
+          [ "$CI_CD_COUNT" -gt 0 ] && BODY+="| 🔧 CI/CD | $CI_CD_COUNT | $(format_files "$CI_CD") |\n"
+
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: changed-files-analysis
+          message: ${{ steps.analysis.outputs.body }}
