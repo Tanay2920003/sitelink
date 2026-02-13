@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './page.module.css';
 
 interface Playlist {
@@ -95,7 +96,7 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                 <div className={styles.sidebarHeader}>
                     <Link href="/" className={styles.sidebarTitleLink}>
                         <div className={styles.logoContainer}>
-                            <img src="/logo.svg" alt="Learning Hub Logo" className={styles.logo} />
+                            <Image src="/logo.svg" alt="Learning Hub Logo" width={32} height={32} className={styles.logo} />
                             <h1>Learning Hub</h1>
                         </div>
                     </Link>
@@ -239,7 +240,7 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                         ))
                     ) : (
                         <div className={styles.noResults}>
-                            <p>No tutorials found matching "{searchQuery}"</p>
+                            <p>No tutorials found matching &quot;{searchQuery}&quot;</p>
                         </div>
                     )}
                 </div>

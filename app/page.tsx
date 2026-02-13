@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import styles from './page.module.css';
 
 interface LearningResource {
@@ -195,7 +196,7 @@ export default function Home() {
       <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.logoContainer}>
-            <img src="/logo.svg" alt="Learning Hub Logo" className={styles.logo} />
+            <Image src="/logo.svg" alt="Learning Hub Logo" width={32} height={32} className={styles.logo} />
             <h1>Learning Hub</h1>
           </div>
           <p>Premium Resources</p>
@@ -336,7 +337,7 @@ export default function Home() {
                     <div className={styles.stats}></div>
                     {hasMultipleUrls ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
-                        {resource.urls!.map((urlItem, idx) => {
+                        {resource.urls!.map((urlItem) => {
                           // Platform-specific solid colors
                           const platformColors: Record<string, string> = {
                             'LeetCode': '#FFA116',
@@ -395,7 +396,7 @@ export default function Home() {
             }))
           ) : (
             <div className={styles.noResults}>
-                <p>No resources found matching "{searchQuery}"</p>
+                <p>No resources found matching &quot;{searchQuery}&quot;</p>
             </div>
           )}
         </div>
