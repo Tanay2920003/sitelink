@@ -230,7 +230,6 @@ export default function Home() {
             <p>Choose a platform to start your learning journey</p>
             
             {/* Search Bar */}
-            {/* Search Bar */}
             <div className={styles.searchContainer} ref={searchContainerRef}>
                 <input
                     type="text"
