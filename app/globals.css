@@ -6,7 +6,8 @@
   --secondary-dark: #0099CC;
   --bg-dark: #0B1120;
   --bg-darker: #020617;
-  --bg-card: rgba(15, 23, 42, 0.75);
+  --bg-card-rgb: 15, 23, 42;
+  --bg-card: rgba(var(--bg-card-rgb), 0.75);
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
   --border: rgba(56, 189, 248, 0.1);

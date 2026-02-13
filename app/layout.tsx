@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   description: "Access the best learning resources in one beautiful interface - Roadmap.sh, W3Schools, Web.dev, and Microsoft Learn",
   keywords: ["learning", "development", "programming", "tutorials", "courses"],
   icons: {
-    icon: '/logo.svg',
+    icon: [
+      { url: '/logo.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
   },
 };
 

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Sidebar from '@/components/Sidebar/Sidebar';
 import styles from './page.module.css';
 
 interface Playlist {
@@ -28,13 +29,29 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
     const searchContainerRef = useRef<HTMLDivElement>(null);
+
+    // Refs for horizontal scroll containers
+    const scrollRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+    const scroll = (slug: string, direction: 'left' | 'right') => {
+        const container = scrollRefs.current[slug];
+        if (container) {
+            const scrollAmount = container.clientWidth * 0.8;
+            container.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
 
     // Close suggestions when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
                 setShowSuggestions(false);
+                setActiveSuggestionIndex(-1);
             }
         };
 
@@ -44,10 +61,32 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
         };
     }, []);
 
+    // Handle auto-scroll to category on mount or hash change
+    useEffect(() => {
+        const handleHashScroll = () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetId = hash.replace('#', '');
+                const element = document.getElementById(targetId);
+                if (element) {
+                    // Small timeout to ensure everything is rendered
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            }
+        };
+
+        handleHashScroll();
+        window.addEventListener('hashchange', handleHashScroll);
+        return () => window.removeEventListener('hashchange', handleHashScroll);
+    }, []);
+
     // Generate suggestions
-    const suggestions = searchQuery.length > 0 ? (() => {
+    const suggestions = useMemo(() => {
+        if (searchQuery.length === 0) return [];
         const allSuggestions: { type: 'topic' | 'playlist', item: TopicData | Playlist, icon?: string }[] = [];
-        
+
         topics.forEach(topic => {
             // Check topic matches
             if (topic.name.toLowerCase().includes(searchQuery.toLowerCase())) {
@@ -55,14 +94,37 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
             }
             // Check playlist matches
             topic.playlists.forEach(playlist => {
-                if (playlist.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                if (playlist.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     playlist.creator.toLowerCase().includes(searchQuery.toLowerCase())) {
-                    allSuggestions.push({ type: 'playlist', item: playlist, icon: '📺' });
+                    allSuggestions.push({ type: 'playlist', item: playlist, icon: 'https://img.icons8.com/fluency/48/play-button-circled.png' });
                 }
             });
         });
         return allSuggestions.slice(0, 5);
-    })() : [];
+    }, [searchQuery, topics]);
+
+    const renderIcon = (icon: string) => {
+        if (icon?.startsWith('http')) {
+            return <img src={icon} alt="" width={24} height={24} style={{ objectFit: 'contain' }} />;
+        }
+        return icon;
+    };
+
+    const handleSuggestionClick = (suggestion: { type: 'topic' | 'playlist', item: TopicData | Playlist }) => {
+        const title = suggestion.type === 'topic'
+            ? (suggestion.item as TopicData).name
+            : (suggestion.item as Playlist).title;
+
+        if (suggestion.type === 'topic') {
+            const element = document.getElementById((suggestion.item as TopicData).slug);
+            if (element) element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            window.open((suggestion.item as Playlist).url, '_blank');
+        }
+        setSearchQuery(title);
+        setShowSuggestions(false);
+        setActiveSuggestionIndex(-1);
+    };
 
     const filteredTopics = topics.map(topic => {
         const filteredPlaylists = topic.playlists.filter(playlist =>
@@ -92,39 +154,49 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
             </button>
 
             {/* Sidebar Navigation */}
-            <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
-                <div className={styles.sidebarHeader}>
-                    <Link href="/" className={styles.sidebarTitleLink}>
-                        <div className={styles.logoContainer}>
-                            <Image src="/logo.svg" alt="Learning Hub Logo" width={32} height={32} className={styles.logo} />
-                            <h1>Learning Hub</h1>
-                        </div>
-                    </Link>
-                    <p>YouTube Tutorials</p>
-                </div>
-
-                <div className={styles.sidebarContent}>
-                    {topics.map((topic) => (
-                        <a key={topic.slug} href={`#${topic.slug}`} className={styles.categoryLink}>
-                            <span>{topic.icon}</span>
-                            <span>{topic.name}</span>
-                        </a>
-                    ))}
-                </div>
-
-                <div className={styles.sidebarFooter}>
-                    <p>✨ Curated Content</p>
-                    <p>{topics.length} Categories</p>
-                </div>
-            </aside>
+            <Sidebar
+                navigationLinks={[
+                    { name: 'All Categories', url: '/', icon: '📁' },
+                    { name: 'YouTube Tutorials', url: '/youtube-tutorials', icon: 'https://img.icons8.com/fluency/48/play-button-circled.png' },
+                    { name: 'Game Development', url: '/game-development', icon: 'https://img.icons8.com/fluency/48/controller.png' },
+                    { name: 'GitHub Repository', url: 'https://github.com/Tanay2920003/Learning-hub', icon: 'https://img.icons8.com/fluency/48/folder-invoices.png' },
+                    { name: 'Contribute', url: 'https://github.com/Tanay2920003/Learning-hub/blob/main/CONTRIBUTING.md', icon: 'https://img.icons8.com/fluency/48/handshake.png' },
+                ]}
+                categories={topics.map(topic => ({
+                    name: topic.name,
+                    icon: topic.icon,
+                    slug: topic.slug
+                }))}
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+                currentPage="YouTube Tutorials"
+                onAction={() => setSearchQuery('')}
+            />
 
             {/* Main Content */}
             <main className={styles.main}>
                 <div className={styles.header}>
                     <div className={styles.headerContent}>
+                        {/* Breadcrumb Navigation */}
+                        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
+                            <Link href="/" className={styles.breadcrumbItem}>
+                                <span className={styles.breadcrumbIcon}>
+                                    <img src="https://img.icons8.com/fluency/48/home.png" alt="" width={16} height={16} />
+                                </span>
+                                <span>Home</span>
+                            </Link>
+                            <span className={styles.breadcrumbSeparator}>›</span>
+                            <div className={`${styles.breadcrumbItem} ${styles.breadcrumbActive}`}>
+                                <span className={styles.breadcrumbIcon}>
+                                    <img src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} />
+                                </span>
+                                <span>YouTube Tutorials</span>
+                            </div>
+                        </nav>
+
                         <h2>YouTube Tutorials</h2>
                         <p>Curated video playlists for every developer skill level</p>
-                        
+
                         {/* Search Bar */}
                         <div className={styles.searchContainer} ref={searchContainerRef}>
                             <input
@@ -134,39 +206,59 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                                 onChange={(e) => {
                                     setSearchQuery(e.target.value);
                                     setShowSuggestions(true);
+                                    setActiveSuggestionIndex(-1);
                                 }}
                                 onFocus={() => setShowSuggestions(true)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'ArrowDown') {
+                                        e.preventDefault();
+                                        setActiveSuggestionIndex(prev =>
+                                            prev < suggestions.length - 1 ? prev + 1 : prev
+                                        );
+                                    } else if (e.key === 'ArrowUp') {
+                                        e.preventDefault();
+                                        setActiveSuggestionIndex(prev => prev > 0 ? prev - 1 : -1);
+                                    } else if (e.key === 'Enter') {
+                                        if (activeSuggestionIndex >= 0 && activeSuggestionIndex < suggestions.length) {
+                                            handleSuggestionClick(suggestions[activeSuggestionIndex]);
+                                        }
+                                    } else if (e.key === 'Escape') {
+                                        setShowSuggestions(false);
+                                        setActiveSuggestionIndex(-1);
+                                    }
+                                }}
                                 className={styles.searchInput}
+                                aria-label="Search tutorials"
+                                aria-expanded={showSuggestions && suggestions.length > 0}
+                                aria-controls="tutorial-search-results"
+                                aria-autocomplete="list"
                             />
                             <span className={styles.searchIcon}>🔍</span>
 
                             {/* Autocomplete Dropdown */}
                             {showSuggestions && searchQuery.length > 0 && (
-                                <div className={styles.suggestionsDropdown}>
+                                <div className={styles.suggestionsDropdown} id="tutorial-search-results" role="listbox">
                                     {suggestions.map((suggestion, index) => {
-                                        const title = suggestion.type === 'topic' 
-                                            ? (suggestion.item as TopicData).name 
+                                        const title = suggestion.type === 'topic'
+                                            ? (suggestion.item as TopicData).name
                                             : (suggestion.item as Playlist).title;
                                         const subtitle = suggestion.type === 'topic'
                                             ? 'Topic'
                                             : `Playlist • ${(suggestion.item as Playlist).creator}`;
-                                            
+
+                                        const key = suggestion.type === 'topic'
+                                            ? (suggestion.item as TopicData).slug
+                                            : `${suggestion.type}-${(suggestion.item as Playlist).url}`;
+
                                         return (
-                                            <div 
-                                                key={`${suggestion.type}-${index}`} 
-                                                className={styles.suggestionItem}
-                                                onClick={() => {
-                                                    if (suggestion.type === 'topic') {
-                                                        const element = document.getElementById((suggestion.item as TopicData).slug);
-                                                        if (element) element.scrollIntoView({ behavior: 'smooth' });
-                                                    } else {
-                                                        window.open((suggestion.item as Playlist).url, '_blank');
-                                                    }
-                                                    setSearchQuery(title);
-                                                    setShowSuggestions(false);
-                                                }}
+                                            <div
+                                                key={key}
+                                                className={`${styles.suggestionItem} ${index === activeSuggestionIndex ? styles.activeSuggestion : ''}`}
+                                                role="option"
+                                                aria-selected={index === activeSuggestionIndex}
+                                                onClick={() => handleSuggestionClick(suggestion)}
                                             >
-                                                <span className={styles.suggestionIcon}>{suggestion.icon}</span>
+                                                <span className={styles.suggestionIcon}>{renderIcon(suggestion.icon || '')}</span>
                                                 <div className={styles.suggestionContent}>
                                                     <span className={styles.suggestionTitle}>{title}</span>
                                                     <span className={styles.suggestionMeta}>{subtitle}</span>
@@ -191,12 +283,35 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                         filteredTopics.map((topic) => (
                             <section key={topic.slug} id={topic.slug} className={styles.categorySection}>
                                 <div className={styles.categoryHeader}>
-                                    <span className={styles.categoryIcon}>{topic.icon}</span>
-                                    <h2 className={styles.categoryTitle}>{topic.name}</h2>
-                                    <p className={styles.categoryDescription}>{topic.description}</p>
+                                    <div className={styles.categoryInfo}>
+                                        <span className={styles.categoryIcon}>{topic.icon}</span>
+                                        <div className={styles.categoryTitles}>
+                                            <h2 className={styles.categoryTitle}>{topic.name}</h2>
+                                            <p className={styles.categoryDescription}>{topic.description}</p>
+                                        </div>
+                                    </div>
+                                    <div className={styles.scrollButtons}>
+                                        <button
+                                            className={styles.scrollButton}
+                                            onClick={() => scroll(topic.slug, 'left')}
+                                            aria-label="Scroll left"
+                                        >
+                                            ‹
+                                        </button>
+                                        <button
+                                            className={styles.scrollButton}
+                                            onClick={() => scroll(topic.slug, 'right')}
+                                            aria-label="Scroll right"
+                                        >
+                                            ›
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div className={styles.grid}>
+                                <div
+                                    className={styles.grid}
+                                    ref={el => { scrollRefs.current[topic.slug] = el; }}
+                                >
                                     {topic.playlists.map((playlist, index) => (
                                         <a
                                             key={`${topic.slug}-${index}`}
@@ -226,7 +341,8 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                                             <div className={styles.cardFooter}>
                                                 <div className={styles.stats}>
                                                     <span className={styles.statItem}>
-                                                        📺 {playlist.videoCount} videos
+                                                        <img src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} style={{ marginRight: '4px' }} />
+                                                        {playlist.videoCount} videos
                                                     </span>
                                                 </div>
                                                 <span className={styles.watchButton}>
