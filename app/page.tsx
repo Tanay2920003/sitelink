@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { getAllCategories, TopicData } from './actions/get-data';
 import Image from 'next/image';
 import Link from 'next/link';
 import Sidebar, { SidebarCategory } from '@/components/Sidebar/Sidebar';
@@ -215,6 +216,16 @@ export default function Home() {
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
+  const [dynamicCategories, setDynamicCategories] = useState<TopicData[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAllCategories();
+      setDynamicCategories(data);
+    }
+    fetchData();
+  }, []);
+
   // Close suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -244,51 +255,74 @@ export default function Home() {
     setActiveSuggestionIndex(-1);
   };
 
+  // Combined resources: static + dynamic
+  const allResources = useMemo(() => {
+    const dynamicResources: LearningResource[] = [];
+    dynamicCategories.forEach(cat => {
+      cat.playlists.forEach((pl, idx) => {
+        dynamicResources.push({
+          id: `${cat.slug}-${idx}-${pl.url}`,
+          name: pl.title,
+          url: pl.url,
+          description: pl.description,
+          icon: 'https://img.icons8.com/fluency/48/video.png',
+          color: '#FF0000',
+          category: cat.name
+        });
+      });
+    });
+    return [...resources, ...dynamicResources];
+  }, [dynamicCategories]);
+
   // Filter resources based on search query
-  const filteredResources = useMemo(() => resources.filter(resource =>
+  const filteredResources = useMemo(() => allResources.filter(resource =>
     resource.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     resource.category.toLowerCase().includes(searchQuery.toLowerCase())
-  ), [searchQuery]);
-
-  // Define the ordered list of categories to show on the Home Hub
-  const HOME_HUB_CATEGORIES = [
-    'Career Planning',
-    'YouTube Tutorials',
-    'Competitive Programming',
-    'Game Development',
-    'Visualizer',
-    'Web Development',
-    'Backend Development',
-    'Blockchain & Web3'
-  ];
+  ), [searchQuery, allResources]);
 
   const categories = useMemo(() => {
+    const categoryNames = dynamicCategories.map(c => c.name);
     if (searchQuery.length > 0) {
-      const activeCategories = Array.from(new Set(filteredResources.map(r => r.category)));
-      return HOME_HUB_CATEGORIES.filter(cat => activeCategories.includes(cat));
+      // logic to filter based on search
+      // For now, just return all or filter names
+      return categoryNames.filter(name => name.toLowerCase().includes(searchQuery.toLowerCase()));
     }
-    return HOME_HUB_CATEGORIES;
-  }, [filteredResources, searchQuery, HOME_HUB_CATEGORIES]);
+    return categoryNames;
+  }, [dynamicCategories, searchQuery]);
 
   // Group resources by category
   const groupedResources = useMemo(() => {
-    return filteredResources.reduce((acc, resource) => {
-      if (!acc[resource.category]) {
-        acc[resource.category] = [];
+    const grouped: Record<string, LearningResource[]> = {};
+
+    // Add dynamic categories
+    dynamicCategories.forEach(cat => {
+      grouped[cat.name] = cat.playlists.map((pl, idx) => ({
+        id: `${cat.slug}-${idx}-${pl.url}`,
+        name: pl.title,
+        url: pl.url,
+        description: pl.description,
+        icon: 'https://img.icons8.com/fluency/48/video.png',
+        color: '#FF0000',
+        category: cat.name
+      }));
+    });
+
+    // Add static resources (optional, if we want to keep them)
+    resources.forEach(res => {
+      if (!grouped[res.category]) {
+        grouped[res.category] = [];
       }
-      acc[resource.category].push(resource);
-      return acc;
-    }, {} as Record<string, LearningResource[]>);
-  }, [filteredResources]);
+      grouped[res.category].push(res);
+    });
+
+    return grouped;
+  }, [dynamicCategories]);
 
   // Helper to get an icon for the category
-  const getCategoryIcon = (category: string) => {
-    // Check if category is YouTube Tutorials for specific icon
-    if (category === 'YouTube Tutorials') return 'https://img.icons8.com/fluency/48/play-button-circled.png';
-    if (category === 'Visualizer') return 'https://img.icons8.com/fluency/48/bar-chart.png';
-    const resource = groupedResources[category]?.[0];
-    return resource ? resource.icon : 'https://img.icons8.com/fluency/48/folder-invoices.png';
+  const getCategoryIcon = (categoryName: string) => {
+    const cat = dynamicCategories.find(c => c.name === categoryName);
+    return cat ? cat.icon : '📁';
   };
 
   const renderIcon = (icon: string) => {

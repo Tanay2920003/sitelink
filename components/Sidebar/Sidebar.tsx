@@ -156,6 +156,17 @@ const Sidebar: React.FC<SidebarProps> = ({
 
                <div className={styles.sidebarFooter}>
                     <div className={styles.footerLinks}>
+                         {process.env.NODE_ENV === 'development' && (
+                              <Link
+                                   href="/edit-data"
+                                   className={styles.sidebarNavLink}
+                                   onClick={handleAction}
+                                   style={{ marginBottom: '0.5rem' }}
+                              >
+                                   <span className={styles.iconWrapper}>📝</span>
+                                   <span>Edit Data</span>
+                              </Link>
+                         )}
                          {footerLinks.map((link) => (
                               <Link
                                    key={link.name}

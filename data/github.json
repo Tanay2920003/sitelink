@@ -1,0 +1,18 @@
+{
+    "name": "github",
+    "slug": "github",
+    "description": "Github Complete",
+    "icon": "https://img.icons8.com/?size=100&id=u9R54eMKS8fw&format=png&color=000000",
+    "playlists": [
+        {
+            "title": "Git and GitHub for Beginners - Crash Course",
+            "creator": "Creator",
+            "url": "https://www.youtube.com/watch?v=RGOj5yH7evk&t=425s",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "",
+            "year": 2021
+        }
+    ]
+}
