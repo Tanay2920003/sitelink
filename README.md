@@ -72,24 +72,37 @@ Follow these steps to set up the project manually.
 
 We welcome contributions! You don't need to be a terminal expert to help out.
 
-### 📝 Edit via Web Interface (Easiest for quick fixes)
-<img width="618" height="134" alt="image" src="https://github.com/user-attachments/assets/a055f486-b64a-4aaf-82af-5665bf312299" />
+### 📝 Using Data Manager (Easiest for quick fixes)
 
-#steps
-For small changes like fixing typos or adding a new link:
-1. Navigate to the file you want to change (e.g., `app/page.tsx`).
+![Data Manager Demo](/home/tanay/.gemini/antigravity/brain/fe74b578-fc9e-42dd-a1f7-455dbd2f197c/data_manager_demo_1771048087221.png)
+
+1. **Run Locally**: Clone and run `npm run dev`.
+2. **Access Editor**: Click the **"Edit Data"** button in the sidebar (only visible in dev mode).
+   ![Edit Data Button](https://github.com/user-attachments/assets/abc3ad5c-3f5e-4609-81b0-4ed2d5e5d6f6)
+3. **Modify Content**: Use the GUI to update metadata or playlists.
+4. **Save & PR**: Click **"Save Changes"**, then commit and open a Pull Request.
+
+### 🛠️ Manual JSON edits
+For small changes like fixing typos in files:
+1. Navigate to the file in `data/` folder.
 2. Click the **Edit** (pencil icon) button at the top right.
 3. Make your changes and click **Commit changes...**.
 4. GitHub will guide you through creating a Pull Request.
 
-
-### 🛠️ Using GitHub Desktop
+### 💻 Using GitHub Desktop
 For larger features:
 1. **Fork** the repository to your own account.
 2. **Clone** your fork using GitHub Desktop.
 3. Make your changes and **Commit** them within the app.
 4. Click **Push origin** to upload your changes.
 5. **Create a Pull Request**: Visit the original repository on the GitHub website, where you'll see a prompt to "Compare & pull request" your recent changes.
+
+
+### 🚀 Improvements & Features
+We love seeing new features, UI refinements, or performance optimizations!
+1. **Explore Issues**: Check our [Issues](https://github.com/Tanay2920003/Learning-hub/issues) for planned features or bugs to fix.
+2. **Submit Ideas**: Have an idea for a "wow" UI effect or a new category? Open a [Feature Request](https://github.com/Tanay2920003/Learning-hub/issues/new).
+3. **Draft a PR**: For large changes, it's best to open a "Draft PR" early to get feedback on your approach.
 
 For more details, please read our [Contributing Guidelines](CONTRIBUTING.md).
 

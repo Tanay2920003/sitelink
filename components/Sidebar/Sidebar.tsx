@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
      const renderIcon = (icon: string) => {
           if (icon.startsWith('http')) {
-               return <img src={icon} alt="" className={styles.iconImage} style={{ width: '20px', height: '20px', objectFit: 'contain' }} />;
+               return <Image src={icon} alt="" width={20} height={20} className={styles.iconImage} style={{ objectFit: 'contain' }} unoptimized />;
           }
           return <span>{icon}</span>;
      };
@@ -156,6 +156,19 @@ const Sidebar: React.FC<SidebarProps> = ({
 
                <div className={styles.sidebarFooter}>
                     <div className={styles.footerLinks}>
+                         {process.env.NODE_ENV === 'development' && (
+                              <Link
+                                   href="/edit-data"
+                                   className={styles.sidebarNavLink}
+                                   onClick={handleAction}
+                                   style={{ marginBottom: '0.5rem' }}
+                              >
+                                   <span className={styles.iconWrapper}>
+                                        <Image src="https://img.icons8.com/fluency/48/edit-property.png" alt="" width={20} height={20} unoptimized />
+                                   </span>
+                                   <span>Edit Data</span>
+                              </Link>
+                         )}
                          {footerLinks.map((link) => (
                               <Link
                                    key={link.name}
@@ -171,9 +184,17 @@ const Sidebar: React.FC<SidebarProps> = ({
                               </Link>
                          ))}
                     </div>
-                    <div className={styles.footerInfo}>
-                         <p>✨ Built with Next.js</p>
-                         <p className={styles.resourceCount}>{categories.length} Categories</p>
+
+                    <div className={styles.footerBottom}>
+                         <div className={styles.footerInfo}>
+                              <span>✨ Built with Next.js</span>
+                              <div className={styles.nextLogo}>
+                                   <Image src="https://img.icons8.com/fluent-systems-filled/40/ffffff/nextjs.png" alt="Next.js" width={16} height={16} unoptimized />
+                              </div>
+                         </div>
+                         <a href="#Categories" className={styles.resourceCount} onClick={handleAction}>
+                              {categories.length} Categories
+                         </a>
                     </div>
                </div>
           </aside>

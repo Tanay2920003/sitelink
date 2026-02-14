@@ -191,7 +191,7 @@ export default function ContributorsPage() {
                                              className={styles.cardButton}
                                              aria-label="View Profile"
                                         >
-                                             <img src="https://img.icons8.com/fluency/48/github.png" width="20" height="20" alt="GitHub" />
+                                             <Image src="https://img.icons8.com/fluency/48/github.png" width={20} height={20} alt="GitHub" unoptimized />
                                         </a>
                                    </div>
                               </div>
@@ -243,7 +243,7 @@ export default function ContributorsPage() {
                               rel="noopener noreferrer"
                               className={styles.repoButton}
                          >
-                              <img src="https://img.icons8.com/fluency/48/github.png" alt="" width={24} height={24} />
+                              <Image src="https://img.icons8.com/fluency/48/github.png" alt="" width={24} height={24} unoptimized />
                               Want to contribute click here
                          </a>
                     </div>

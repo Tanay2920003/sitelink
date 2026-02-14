@@ -105,7 +105,7 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
 
     const renderIcon = (icon: string) => {
         if (icon?.startsWith('http')) {
-            return <img src={icon} alt="" width={24} height={24} style={{ objectFit: 'contain' }} />;
+            return <Image src={icon} alt="" width={24} height={24} style={{ objectFit: 'contain' }} unoptimized />;
         }
         return icon;
     };
@@ -181,14 +181,14 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
                             <Link href="/" className={styles.breadcrumbItem}>
                                 <span className={styles.breadcrumbIcon}>
-                                    <img src="https://img.icons8.com/fluency/48/home.png" alt="" width={16} height={16} />
+                                    <Image src="https://img.icons8.com/fluency/48/home.png" alt="" width={16} height={16} unoptimized />
                                 </span>
                                 <span>Home</span>
                             </Link>
                             <span className={styles.breadcrumbSeparator}>›</span>
                             <div className={`${styles.breadcrumbItem} ${styles.breadcrumbActive}`}>
                                 <span className={styles.breadcrumbIcon}>
-                                    <img src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} />
+                                    <Image src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} unoptimized />
                                 </span>
                                 <span>YouTube Tutorials</span>
                             </div>
@@ -201,6 +201,7 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                         <div className={styles.searchContainer} ref={searchContainerRef}>
                             <input
                                 type="text"
+                                role="combobox"
                                 placeholder="Search tutorials, creators, or topics..."
                                 value={searchQuery}
                                 onChange={(e) => {
@@ -341,7 +342,7 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                                             <div className={styles.cardFooter}>
                                                 <div className={styles.stats}>
                                                     <span className={styles.statItem}>
-                                                        <img src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} style={{ marginRight: '4px' }} />
+                                                        <Image src="https://img.icons8.com/fluency/48/play-button-circled.png" alt="" width={16} height={16} style={{ marginRight: '4px' }} unoptimized />
                                                         {playlist.videoCount} videos
                                                     </span>
                                                 </div>
