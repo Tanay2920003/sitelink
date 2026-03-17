@@ -3,6 +3,20 @@
     "slug": "dbms",
     "description": "Master databases from relational to NoSQL systems",
     "icon": "🗄️",
+    "articles": [
+        {
+            "title": "SQLZoo - Interactive SQL Tutorial",
+            "url": "https://sqlzoo.net/"
+        },
+        {
+            "title": "MongoDB University - Free Courses",
+            "url": "https://university.mongodb.com/"
+        },
+        {
+            "title": "PostgreSQL Tutorial",
+            "url": "https://www.postgresqltutorial.com/"
+        }
+    ],
     "playlists": [
         {
             "title": "DBMS Complete Course",

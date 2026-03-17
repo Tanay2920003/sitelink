@@ -3,6 +3,20 @@
     "slug": "dsa",
     "description": "Master the fundamentals of computer science with curated DSA playlists",
     "icon": "📊",
+    "articles": [
+        {
+            "title": "VisuAlgo - Visualizing Data Structures and Algorithms",
+            "url": "https://visualgo.net/en"
+        },
+        {
+            "title": "GeeksforGeeks DSA Course",
+            "url": "https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial-for-placement-preparation/"
+        },
+        {
+            "title": "LeetCode Explore Cards",
+            "url": "https://leetcode.com/explore/"
+        }
+    ],
     "playlists": [
         {
             "title": "Striver's A2Z DSA Course",

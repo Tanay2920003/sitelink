@@ -3,6 +3,20 @@
     "slug": "python",
     "description": "Learn Python from basics to advanced topics with these hand-picked playlists",
     "icon": "🐍",
+    "articles": [
+        {
+            "title": "Python Official Documentation Tutorial",
+            "url": "https://docs.python.org/3/tutorial/"
+        },
+        {
+            "title": "Real Python Tutorials",
+            "url": "https://realpython.com/"
+        },
+        {
+            "title": "Automate the Boring Stuff with Python",
+            "url": "https://automatetheboringstuff.com/"
+        }
+    ],
     "playlists": [
         {
             "title": "Python for Everybody",

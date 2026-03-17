@@ -3,6 +3,20 @@
     "slug": "webdev",
     "description": "Frontend, backend, and full-stack web development resources",
     "icon": "🌐",
+    "articles": [
+        {
+            "title": "MDN Web Docs - Learn Web Development",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn"
+        },
+        {
+            "title": "freeCodeCamp Responsive Web Design",
+            "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/"
+        },
+        {
+            "title": "JavaScript.info - Modern JavaScript Tutorial",
+            "url": "https://javascript.info/"
+        }
+    ],
     "playlists": [
         {
             "title": "HTML & CSS Full Course",

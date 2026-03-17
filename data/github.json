@@ -3,6 +3,20 @@
     "slug": "github",
     "description": "Github Complete",
     "icon": "https://img.icons8.com/?size=100&id=u9R54eMKS8fw&format=png&color=000000",
+    "articles": [
+        {
+            "title": "GitHub Docs - Getting Started",
+            "url": "https://docs.github.com/en/get-started"
+        },
+        {
+            "title": "GitHub Learning Lab",
+            "url": "https://lab.github.com/"
+        },
+        {
+            "title": "Oh My Git! - Interactive Git Game",
+            "url": "https://ohmygit.org/"
+        }
+    ],
     "playlists": [
         {
             "title": "Git and GitHub for Beginners - Crash Course",

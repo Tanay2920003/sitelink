@@ -3,6 +3,20 @@
     "slug": "ml",
     "description": "From ML fundamentals to deep learning and AI applications",
     "icon": "🤖",
+    "articles": [
+        {
+            "title": "Google Machine Learning Crash Course",
+            "url": "https://developers.google.com/machine-learning/crash-course"
+        },
+        {
+            "title": "3Blue1Brown Neural Networks",
+            "url": "https://www.3blue1brown.com/topics/neural-networks"
+        },
+        {
+            "title": "Scikit-learn User Guide",
+            "url": "https://scikit-learn.org/stable/user_guide.html"
+        }
+    ],
     "playlists": [
         {
             "title": "Machine Learning Specialization",

@@ -3,6 +3,20 @@
     "slug": "os",
     "description": "Understand how operating systems work under the hood",
     "icon": "💻",
+    "articles": [
+        {
+            "title": "Operating Systems: Three Easy Pieces (OSTEP)",
+            "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/"
+        },
+        {
+            "title": "TutorialsPoint Operating Systems",
+            "url": "https://www.tutorialspoint.com/operating_system/index.htm"
+        },
+        {
+            "title": "MIT OpenCourseWare Operating Systems",
+            "url": "https://ocw.mit.edu/courses/6-828-operating-system-engineering-fall-2012/"
+        }
+    ],
     "playlists": [
         {
             "title": "Operating Systems",

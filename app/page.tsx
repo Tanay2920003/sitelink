@@ -17,6 +17,11 @@ interface LearningResource {
   category: string;
 }
 
+interface CategoryData {
+  playlists: LearningResource[];
+  articles?: { title: string; url: string }[];
+}
+
 const resources: LearningResource[] = [
   {
     id: 'roadmap',
@@ -292,27 +297,30 @@ export default function Home() {
 
   // Group resources by category
   const groupedResources = useMemo(() => {
-    const grouped: Record<string, LearningResource[]> = {};
+    const grouped: Record<string, CategoryData> = {};
 
     // Add dynamic categories
     dynamicCategories.forEach(cat => {
-      grouped[cat.name] = cat.playlists.map((pl, idx) => ({
-        id: `${cat.slug}-${idx}-${pl.url}`,
-        name: pl.title,
-        url: pl.url,
-        description: pl.description,
-        icon: 'https://img.icons8.com/fluency/48/video.png',
-        color: '#FF0000',
-        category: cat.name
-      }));
+      grouped[cat.name] = {
+        playlists: cat.playlists.map((pl, idx) => ({
+          id: `${cat.slug}-${idx}-${pl.url}`,
+          name: pl.title,
+          url: pl.url,
+          description: pl.description,
+          icon: 'https://img.icons8.com/fluency/48/video.png',
+          color: '#FF0000',
+          category: cat.name
+        })),
+        articles: cat.articles || []
+      };
     });
 
     // Add static resources (optional, if we want to keep them)
     resources.forEach(res => {
       if (!grouped[res.category]) {
-        grouped[res.category] = [];
+        grouped[res.category] = { playlists: [], articles: [] };
       }
-      grouped[res.category].push(res);
+      grouped[res.category].playlists.push(res);
     });
 
     return grouped;
@@ -491,8 +499,8 @@ export default function Home() {
                   className={styles.grid}
                   ref={el => { scrollRefs.current[category] = el; }}
                 >
-                  {groupedResources[category]?.length > 0 ? (
-                    groupedResources[category].map((resource) => {
+                  {groupedResources[category]?.playlists.length > 0 ? (
+                    groupedResources[category].playlists.map((resource) => {
                       const hasMultipleUrls = resource.urls && resource.urls.length > 0;
                       const singleUrl = resource.url || '';
                       const isInternal = singleUrl.startsWith('/');
@@ -614,6 +622,27 @@ export default function Home() {
                     </div>
                   )}
                 </div>
+                
+                {/* Articles Card */}
+                {groupedResources[category]?.articles && groupedResources[category].articles!.length > 0 && (
+                  <div className={styles.articlesSection}>
+                    <h3 className={styles.articlesTitle}>📚 Articles & Notes to Read</h3>
+                    <div className={styles.articlesGrid}>
+                      {groupedResources[category].articles!.map((article, idx) => (
+                        <a
+                          key={idx}
+                          href={article.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.articleCard}
+                        >
+                          <span className={styles.articleIcon}>📄</span>
+                          <span className={styles.articleTitle}>{article.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </section>
             ))
           ) : (

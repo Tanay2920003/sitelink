@@ -3,6 +3,20 @@
     "slug": "java",
     "description": "Java Development",
     "icon": "https://img.icons8.com/?size=100&id=Pd2x9GWu9ovX&format=png&color=000000",
+    "articles": [
+        {
+            "title": "W3Schools Java Tutorials",
+            "url": "https://www.w3schools.com/java/"
+        },
+        {
+            "title": "Baeldung - Java Tutorials",
+            "url": "https://www.baeldung.com/"
+        },
+        {
+            "title": "JavaTPoint - Java Tutorial",
+            "url": "https://www.javatpoint.com/java-tutorial"
+        }
+    ],
     "playlists": [
         {
             "title": "Java OneShot in 2 Hours",

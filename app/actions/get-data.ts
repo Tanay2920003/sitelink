@@ -14,12 +14,18 @@ export interface Playlist {
      year: number;
 }
 
+export interface Article {
+     title: string;
+     url: string;
+}
+
 export interface TopicData {
      name: string;
      slug: string;
      description: string;
      icon: string;
      playlists: Playlist[];
+     articles?: Article[];
 }
 
 export async function getAllCategories(): Promise<TopicData[]> {

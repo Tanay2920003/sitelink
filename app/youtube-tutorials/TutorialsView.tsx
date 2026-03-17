@@ -23,6 +23,7 @@ interface TopicData {
     description: string;
     icon: string;
     playlists: Playlist[];
+    articles?: { title: string; url: string }[];
 }
 
 export default function TutorialsView({ topics }: { topics: TopicData[] }) {
@@ -353,6 +354,27 @@ export default function TutorialsView({ topics }: { topics: TopicData[] }) {
                                         </a>
                                     ))}
                                 </div>
+                                
+                                {/* Articles Section */}
+                                {topic.articles && topic.articles.length > 0 && (
+                                    <div className={styles.articlesSection}>
+                                        <h3 className={styles.articlesTitle}>📚 Articles & Notes to Read</h3>
+                                        <div className={styles.articlesGrid}>
+                                            {topic.articles.map((article, idx) => (
+                                                <a
+                                                    key={idx}
+                                                    href={article.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={styles.articleCard}
+                                                >
+                                                    <span className={styles.articleIcon}>📄</span>
+                                                    <span className={styles.articleTitle}>{article.title}</span>
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </section>
                         ))
                     ) : (

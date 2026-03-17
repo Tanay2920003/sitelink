@@ -3,6 +3,20 @@
     "slug": "system-design",
     "description": "Learn to design scalable systems and ace system design interviews",
     "icon": "🏗️",
+    "articles": [
+        {
+            "title": "System Design Primer (GitHub)",
+            "url": "https://github.com/donnemartin/system-design-primer"
+        },
+        {
+            "title": "High Scalability Blog",
+            "url": "http://highscalability.com/"
+        },
+        {
+            "title": "ByteByteGo System Design Newsletter",
+            "url": "https://blog.bytebytego.com/"
+        }
+    ],
     "playlists": [
         {
             "title": "System Design Primer",
