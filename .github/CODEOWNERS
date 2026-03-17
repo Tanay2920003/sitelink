@@ -1,0 +1,6 @@
+# Automatically request review from the repository owner for any changes
+*       @Tanay2920003
+
+# Specific rules for sensitive areas
+.github/workflows/    @Tanay2920003
+package.json          @Tanay2920003

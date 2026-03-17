@@ -1,0 +1,19 @@
+documentation:
+  - changed-files:
+    - any-glob-to-any-file: ["*.md", "*.mdx", "*.txt"]
+
+bug:
+  - changed-files:
+    - any-glob-to-any-file: ["**/*.test.*", "**/*.spec.*", "**/__tests__/**"]
+
+enhancement:
+  - changed-files:
+    - any-glob-to-any-file: ["app/**/*.tsx", "app/**/*.ts", "components/**/*.tsx", "components/**/*.ts"]
+
+ci/cd:
+  - changed-files:
+    - any-glob-to-any-file: [".github/workflows/*.yml", ".github/labeler.yml"]
+
+assets:
+  - changed-files:
+    - any-glob-to-any-file: ["public/**/*", "**/assets/**"]
