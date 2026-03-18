@@ -10,11 +10,11 @@
 [![CodeQL](https://github.com/Tanay2920003/Learning-hub/actions/workflows/codeql.yml/badge.svg)](https://github.com/Tanay2920003/Learning-hub/actions/workflows/codeql.yml)
 [![Release](https://github.com/Tanay2920003/Learning-hub/actions/workflows/release.yml/badge.svg)](https://github.com/Tanay2920003/Learning-hub/actions/workflows/release.yml)
 
-A stunning, responsive directory of premium developer learning resources. Learning Hub aggregates top-tier platforms like Roadmap.sh, W3Schools, Web.dev, and Microsoft Learn into a beautiful, unified interface with a card-based design.
+A modern, responsive open-source hub for learning resources, tools, roadmaps, and community-built projects. Learning Hub brings helpful developer content into one clean interface so people can learn, explore, and contribute in one place.
 
 ## ✨ Features
 
-- **Cards Directory**: Interactive cards with branded colors and categories.
+- **Flexible Discovery Hub**: Browse learning categories, tools, roadmaps, and community projects from one home page.
 - **Glassmorphism UI**: Modern aesthetic with backdrop blurs and gradients.
 - **Fully Responsive**: Optimized for 4K ultrawide, desktops, laptops, tablets, and mobile devices.
 - **Mobile First**: Smooth hamburger menu overlay and touch-friendly interactions.
@@ -70,17 +70,17 @@ Follow these steps to set up the project manually.
 
 ## 🤝 How to Contribute
 
-We welcome contributions! You don't need to be a terminal expert to help out.
+We welcome contributions of all sizes. You do not need to be a terminal expert to help out, and if you contribute through GitHub your name can appear in the contributors section too.
 
 ### 📝 Using Data Manager (Easiest for quick fixes)
 
-![Data Manager Demo](/home/tanay/.gemini/antigravity/brain/fe74b578-fc9e-42dd-a1f7-455dbd2f197c/data_manager_demo_1771048087221.png)
+   
 
 1. **Run Locally**: Clone and run `npm run dev`.
-2. **Access Editor**: Click the **"Edit Data"** button in the sidebar (only visible in dev mode).
+2. **Access Editor**: Click the **"Edit Data"** button in the navbar (only visible in dev mode).
    ![Edit Data Button](https://github.com/user-attachments/assets/abc3ad5c-3f5e-4609-81b0-4ed2d5e5d6f6)
-3. **Modify Content**: Use the GUI to update metadata or playlists.
-4. **Save & PR**: Click **"Save Changes"**, then commit and open a Pull Request.
+3. **Modify Content**: Use the GUI to update metadata, resources, playlists, or articles.
+4. **Save & PR**: Click **"Save Changes"**, then commit and open a Pull Request so your contribution can be reviewed and added.
 
 ### 🛠️ Manual JSON edits
 For small changes like fixing typos in files:
@@ -99,9 +99,9 @@ For larger features:
 
 
 ### 🚀 Improvements & Features
-We love seeing new features, UI refinements, or performance optimizations!
+We love seeing new features, UI refinements, category ideas, tools, and community project submissions.
 1. **Explore Issues**: Check our [Issues](https://github.com/Tanay2920003/Learning-hub/issues) for planned features or bugs to fix.
-2. **Submit Ideas**: Have an idea for a "wow" UI effect or a new category? Open a [Feature Request](https://github.com/Tanay2920003/Learning-hub/issues/new).
+2. **Submit Ideas**: Have an idea for a "wow" UI effect, a new category, a useful tool, or a community project to feature? Open a [Feature Request](https://github.com/Tanay2920003/Learning-hub/issues/new).
 3. **Draft a PR**: For large changes, it's best to open a "Draft PR" early to get feedback on your approach.
 
 For more details, please read our [Contributing Guidelines](CONTRIBUTING.md).
@@ -121,7 +121,7 @@ Learning-hub/
 
 ## ✨ Contributors
 
-Thank you to everyone who helps improve Learning Hub!
+Thank you to everyone helping improve Learning Hub. Want to be listed here too? Open a GitHub contribution and become part of the project.
 
 <a href="https://github.com/Tanay2920003/Learning-hub/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Tanay2920003/Learning-hub" alt="Contributors" />
