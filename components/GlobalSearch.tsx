@@ -46,6 +46,11 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
+  const closeSearch = () => {
+    setOpen(false);
+    setQuery("");
+  };
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const isShortcut = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k";
@@ -68,7 +73,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
       }
 
       if (event.key === "Escape") {
-        setOpen(false);
+        closeSearch();
       }
     };
 
@@ -86,12 +91,6 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
     return () => window.removeEventListener("global-search:open", onOpen);
   }, []);
 
-  useEffect(() => {
-    if (!open) {
-      setQuery("");
-    }
-  }, [open]);
-
   const suggestions = useMemo(() => {
     const matched = items.filter((item) => matchesQuery(item, query));
 
@@ -105,7 +104,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
   const topSuggestion = suggestions[0];
 
   const openItem = (item: GlobalSearchItem) => {
-    setOpen(false);
+    closeSearch();
 
     if (item.isExternal) {
       window.open(item.href, "_blank", "noopener,noreferrer");
@@ -136,7 +135,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
       {open && (
         <div
           className="fixed inset-0 z-[80] flex items-start justify-center bg-black/65 px-4 py-6 backdrop-blur-sm sm:py-12"
-          onClick={() => setOpen(false)}
+          onClick={closeSearch}
         >
           <div
             className="w-full max-w-2xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/95 shadow-2xl shadow-black/40"
@@ -156,7 +155,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
                 variant="ghost"
                 size="icon"
                 className="size-9 rounded-full text-slate-400 hover:bg-slate-900 hover:text-white"
-                onClick={() => setOpen(false)}
+                onClick={closeSearch}
               >
                 <X className="h-4 w-4" />
               </Button>
