@@ -82,7 +82,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
                     </p>
                 </div>
 
-                <PathContentView playlists={data.playlists} articles={data.articles || []} />
+                <PathContentView playlists={data.playlists} articles={data.articles || []} categorySlug={data.slug} />
 
             </main>
         </div>
