@@ -34,7 +34,9 @@ export function PathContentView({ playlists, articles }: PathContentProps) {
 
   const filteredPlaylists = playlists.filter((playlist) =>
     playlist.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    playlist.creator.toLowerCase().includes(searchQuery.toLowerCase())
+    playlist.creator.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    playlist.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    playlist.difficulty.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredArticles = articles.filter((article) =>
