@@ -1,0 +1,44 @@
+{
+    "name": "Roadmaps",
+    "slug": "roadmaps",
+    "description": "Explore structured developer learning paths and role-based guides from roadmap.sh.",
+    "icon": "🗺️",
+    "articles": [
+        {
+            "title": "roadmap.sh",
+            "url": "https://roadmap.sh/"
+        },
+        {
+            "title": "W3Schools",
+            "url": "https://www.w3schools.com/"
+        },
+        {
+            "title": "GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/"
+        },
+        {
+            "title": "Frontend Roadmap",
+            "url": "https://roadmap.sh/frontend"
+        },
+        {
+            "title": "Backend Roadmap",
+            "url": "https://roadmap.sh/backend"
+        },
+        {
+            "title": "DevOps Roadmap",
+            "url": "https://roadmap.sh/devops"
+        }
+    ],
+    "playlists": [
+        {
+            "title": "roadmap.sh Website Guide",
+            "creator": "roadmap.sh",
+            "url": "https://roadmap.sh/",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Use roadmap.sh to choose a path, track topics, and navigate structured developer roadmaps.",
+            "year": 2026
+        }
+    ]
+}

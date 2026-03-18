@@ -1,0 +1,24 @@
+{
+    "name": "Tools",
+    "slug": "tools",
+    "description": "Explore useful tools and utility websites shared by contributors. Want to feature one here? Submit it through a contribution and we can add it.",
+    "icon": "🛠️",
+    "articles": [
+        {
+            "title": "ImageLocal",
+            "url": "https://imagelocal.site/"
+        }
+    ],
+    "playlists": [
+        {
+            "title": "ImageLocal",
+            "creator": "ImageLocal",
+            "url": "https://imagelocal.site/",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A useful web tool you can add to your developer toolkit.",
+            "year": 2026
+        }
+    ]
+}

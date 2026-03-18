@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
+import { GlobalSearch } from "@/components/GlobalSearch";
+import { getGlobalSearchItems } from "@/lib/search";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({
@@ -21,15 +23,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const searchItems = await getGlobalSearchItems();
+
   return (
     <html lang="en" className={cn("dark", geist.variable)} suppressHydrationWarning>
       <body className="font-sans antialiased min-h-screen bg-background text-foreground selection:bg-blue-500/30">
           {children}
+          <GlobalSearch items={searchItems} />
       </body>
     </html>
   );

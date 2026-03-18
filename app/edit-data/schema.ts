@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export const ArticleSchema = z.object({
+     title: z.string().min(1, "Article title is required"),
+     url: z.string().url("Invalid article URL"),
+});
+
 export const PlaylistSchema = z.object({
      title: z.string().min(1, "Title is required"),
      creator: z.string().min(1, "Creator is required"),
@@ -16,11 +21,13 @@ export const CategorySchema = z.object({
      slug: z.string().min(1, "Slug is required").regex(/^[a-z0-9-]+$/, "Slug must be kebab-case"),
      description: z.string(),
      icon: z.string(),
-     playlists: z.array(PlaylistSchema)
+     playlists: z.array(PlaylistSchema),
+     articles: z.array(ArticleSchema).optional(),
 });
 
 export type Category = z.infer<typeof CategorySchema>;
 export type Playlist = z.infer<typeof PlaylistSchema>;
+export type Article = z.infer<typeof ArticleSchema>;
 
 export function validateCategory(data: unknown) {
      return CategorySchema.safeParse(data);

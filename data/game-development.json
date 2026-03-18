@@ -1,0 +1,38 @@
+{
+    "name": "Game Development",
+    "slug": "game-development",
+    "description": "Master industry-standard game engines with official Unity and Unreal Engine learning resources.",
+    "icon": "🎮",
+    "articles": [
+        {
+            "title": "Unity Learn",
+            "url": "https://unity.com/learn"
+        },
+        {
+            "title": "Unreal Engine Learn",
+            "url": "https://www.unrealengine.com/en-US/learn"
+        }
+    ],
+    "playlists": [
+        {
+            "title": "Unity Learn",
+            "creator": "Unity",
+            "url": "https://unity.com/learn",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Master real-time 3D development with official Unity tutorials, pathways, and projects.",
+            "year": 2026
+        },
+        {
+            "title": "Unreal Engine",
+            "creator": "Epic Games",
+            "url": "https://www.unrealengine.com/en-US/learn",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "Learn to create stunning, high-fidelity 3D experiences with Unreal Engine's official courses.",
+            "year": 2026
+        }
+    ]
+}

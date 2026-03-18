@@ -330,6 +330,10 @@
      flex-direction: column;
 }
 
+.secondarySection {
+     margin-top: 2rem;
+}
+
 .sectionHeader {
      display: flex;
      justify-content: space-between;

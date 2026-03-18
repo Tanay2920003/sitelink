@@ -1,0 +1,38 @@
+{
+    "name": "Community Sites and Projects",
+    "slug": "community-sites-and-projects",
+    "description": "Explore community-built sites and projects shared by contributors. Want to feature yours too? Submit it through a contribution and we can add it here.",
+    "icon": "🌐",
+    "articles": [
+        {
+            "title": "GitHub Visualizer",
+            "url": "https://github-visualizer-olive.vercel.app/"
+        },
+        {
+            "title": "AlgoViz",
+            "url": "https://algovizvps.vercel.app"
+        }
+    ],
+    "playlists": [
+        {
+            "title": "GitHub Visualizer",
+            "creator": "Veer Pratap Singh",
+            "url": "https://github-visualizer-olive.vercel.app/",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A community project by Veer Pratap Singh. Explore it, get inspired, and add yours too by contributing to Learning Hub.",
+            "year": 2026
+        },
+        {
+            "title": "AlgoViz",
+            "creator": "Veer Pratap Singh",
+            "url": "https://algovizvps.vercel.app",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A community project by Veer Pratap Singh focused on algorithm visualization and learning.",
+            "year": 2026
+        }
+    ]
+}

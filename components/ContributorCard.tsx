@@ -16,7 +16,6 @@ interface Contributor {
 }
 
 const REPO_OWNER = "Tanay2920003";
-const REPO_NAME = "Learning-hub";
 
 export function ContributorCard({ contributor }: { contributor: Contributor }) {
   const isOwner = contributor.login === REPO_OWNER;

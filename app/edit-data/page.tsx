@@ -6,7 +6,7 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Playlist } from './schema';
+import { Article, Playlist } from './schema';
 
 // --- Types ---
 interface FileMetadata {
@@ -21,6 +21,14 @@ interface CategoryData {
      description: string;
      icon: string;
      playlists: Playlist[];
+     articles?: Article[];
+}
+
+interface ResourceDraft {
+     title: string;
+     url: string;
+     creator: string;
+     description: string;
 }
 
 const DEFAULT_CATEGORY: CategoryData = {
@@ -28,7 +36,8 @@ const DEFAULT_CATEGORY: CategoryData = {
      slug: "new-category",
      description: "Description",
      icon: "📁",
-     playlists: []
+     playlists: [],
+     articles: []
 };
 
 const PLAYLIST_TEMPLATE: Playlist = {
@@ -41,6 +50,20 @@ const PLAYLIST_TEMPLATE: Playlist = {
      description: "",
      year: new Date().getFullYear()
 };
+
+const ARTICLE_TEMPLATE: Article = {
+     title: "New Article",
+     url: "",
+};
+
+const RESOURCE_TEMPLATE: ResourceDraft = {
+     title: "New Resource",
+     url: "",
+     creator: "",
+     description: "",
+};
+
+const RESOURCE_CATEGORY_SLUGS = new Set(["tools", "community-sites-and-projects"]);
 
 // --- Sub-Components (Internal for now for cohesion) ---
 
@@ -59,7 +82,7 @@ const FloatingInput = ({ label, value, onChange, hint, type = "text" }: { label:
 );
 
 const MetadataPanel = ({ data, onChange }: { data: CategoryData, onChange: (d: CategoryData) => void }) => {
-     const handleChange = (field: keyof CategoryData, value: string | Playlist[]) => {
+     const handleChange = (field: keyof CategoryData, value: string | Playlist[] | Article[] | undefined) => {
           onChange({ ...data, [field]: value } as CategoryData);
      };
 
@@ -72,6 +95,83 @@ const MetadataPanel = ({ data, onChange }: { data: CategoryData, onChange: (d: C
                <FloatingInput label="Slug (ID)" value={data.slug} onChange={(v) => handleChange('slug', v as string)} hint="URL-friendly ID (e.g., web-dev)" />
                <FloatingInput label="Description" value={data.description} onChange={(v) => handleChange('description', v as string)} />
                <FloatingInput label="Icon (Emoji/URL)" value={data.icon} onChange={(v) => handleChange('icon', v as string)} hint="e.g. ⚛️ or https://..." />
+          </div>
+     );
+};
+
+const ArticleCard = ({ article, onChange, onDelete }: { article: Article, onChange: (val: Article) => void, onDelete: () => void }) => {
+     const handleChange = <K extends keyof Article>(field: K, value: Article[K]) => {
+          onChange({ ...article, [field]: value });
+     };
+
+     return (
+          <div className={styles.playlistCard}>
+               <div className={styles.cardPreview}>
+                    <span className={styles.cardIcon}>📄</span>
+                    <button className={styles.deleteCardBtn} onClick={onDelete} title="Delete Article">×</button>
+               </div>
+               <div className={styles.cardContent}>
+                    <input
+                         className={styles.cardTitleInput}
+                         value={article.title}
+                         onChange={(e) => handleChange('title', e.target.value)}
+                         placeholder="Article Title"
+                    />
+                    <div style={{ marginTop: '10px' }}>
+                         <input
+                              className={styles.metaInput}
+                              value={article.url}
+                              onChange={(e) => handleChange('url', e.target.value)}
+                              placeholder="Article URL..."
+                         />
+                    </div>
+               </div>
+          </div>
+     );
+};
+
+const ResourceCard = ({ resource, onChange, onDelete }: { resource: ResourceDraft, onChange: (val: ResourceDraft) => void, onDelete: () => void }) => {
+     const handleChange = <K extends keyof ResourceDraft>(field: K, value: ResourceDraft[K]) => {
+          onChange({ ...resource, [field]: value });
+     };
+
+     return (
+          <div className={styles.playlistCard}>
+               <div className={styles.cardPreview}>
+                    <span className={styles.cardIcon}>🛠️</span>
+                    <button className={styles.deleteCardBtn} onClick={onDelete} title="Delete Resource">×</button>
+               </div>
+               <div className={styles.cardContent}>
+                    <input
+                         className={styles.cardTitleInput}
+                         value={resource.title}
+                         onChange={(e) => handleChange('title', e.target.value)}
+                         placeholder="Resource Title"
+                    />
+                    <input
+                         className={styles.metaInput}
+                         style={{ marginBottom: '8px', border: 'none', background: 'transparent', padding: '0', color: '#a1a1aa' }}
+                         value={resource.creator}
+                         onChange={(e) => handleChange('creator', e.target.value)}
+                         placeholder="Creator / Owner"
+                    />
+                    <div style={{ marginTop: '10px' }}>
+                         <input
+                              className={styles.metaInput}
+                              value={resource.url}
+                              onChange={(e) => handleChange('url', e.target.value)}
+                              placeholder="Resource URL..."
+                         />
+                    </div>
+                    <div style={{ marginTop: '10px' }}>
+                         <input
+                              className={styles.metaInput}
+                              value={resource.description}
+                              onChange={(e) => handleChange('description', e.target.value)}
+                              placeholder="Short description..."
+                         />
+                    </div>
+               </div>
           </div>
      );
 };
@@ -183,7 +283,7 @@ const GuideOverlay = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => voi
 
                     <div className={styles.guideSection}>
                          <h3>1. Edit Your Content</h3>
-                         <p>Select a category from the sidebar. You can update titles, descriptions, and add or remove playlists directly in the GUI.</p>
+                         <p>Select a category from the sidebar. You can update titles, descriptions, and add or remove playlists and articles directly in the GUI.</p>
                     </div>
 
                     <div className={styles.guideSection}>
@@ -228,7 +328,7 @@ const UnsavedChangesModal = ({ isOpen, onClose, onConfirm }: { isOpen: boolean, 
 const DiffModal = ({ isOpen, onClose, currentData, initialData }: { isOpen: boolean, onClose: () => void, currentData: CategoryData, initialData: CategoryData | null }) => {
      if (!initialData || !isOpen) return null;
 
-     const metadataDiff: { label: string, old: string | number | Playlist[], new: string | number | Playlist[] }[] = [];
+     const metadataDiff: { label: string, old: string | number | Playlist[] | Article[] | undefined, new: string | number | Playlist[] | Article[] | undefined }[] = [];
      const fields: (keyof CategoryData)[] = ['name', 'slug', 'description', 'icon'];
      fields.forEach(f => {
           if (currentData[f] !== initialData[f]) {
@@ -239,6 +339,8 @@ const DiffModal = ({ isOpen, onClose, currentData, initialData }: { isOpen: bool
      // Simple playlist diffing
      const initialPlaylists = initialData.playlists || [];
      const currentPlaylists = currentData.playlists || [];
+     const initialArticles = initialData.articles || [];
+     const currentArticles = currentData.articles || [];
 
      const diffView = (
           <div className={styles.diffList}>
@@ -273,6 +375,25 @@ const DiffModal = ({ isOpen, onClose, currentData, initialData }: { isOpen: bool
                     {currentPlaylists.length === initialPlaylists.length && (
                          <div className={styles.diffItem}>
                               <span className={`${styles.diffTag} ${styles.tagMod}`}>Playlists content modified</span>
+                         </div>
+                    )}
+               </div>
+
+               <div>
+                    <span className={styles.diffLabel}>Article Changes</span>
+                    {currentArticles.length > initialArticles.length && (
+                         <div className={styles.diffItem}>
+                              <span className={`${styles.diffTag} ${styles.tagAdd}`}>+ {currentArticles.length - initialArticles.length} New Articles Added</span>
+                         </div>
+                    )}
+                    {currentArticles.length < initialArticles.length && (
+                         <div className={styles.diffItem}>
+                              <span className={`${styles.diffTag} ${styles.tagRem}`}>- {initialArticles.length - currentArticles.length} Articles Removed</span>
+                         </div>
+                    )}
+                    {currentArticles.length === initialArticles.length && (
+                         <div className={styles.diffItem}>
+                              <span className={`${styles.diffTag} ${styles.tagMod}`}>Articles content modified</span>
                          </div>
                     )}
                </div>
@@ -368,6 +489,49 @@ const JsonModal = ({ isOpen, onClose, data }: { isOpen: boolean, onClose: () => 
      </Modal>
 );
 
+function buildResourcesFromCategory(data: CategoryData): ResourceDraft[] {
+     const playlistByUrl = new Map((data.playlists || []).map((playlist) => [playlist.url, playlist]));
+     const articleByUrl = new Map((data.articles || []).map((article) => [article.url, article]));
+     const orderedUrls = Array.from(new Set([
+          ...(data.playlists || []).map((playlist) => playlist.url),
+          ...(data.articles || []).map((article) => article.url),
+     ])).filter(Boolean);
+
+     return orderedUrls.map((url) => {
+          const playlist = playlistByUrl.get(url);
+          const article = articleByUrl.get(url);
+
+          return {
+               title: playlist?.title || article?.title || "Untitled Resource",
+               url,
+               creator: playlist?.creator || "",
+               description: playlist?.description || "",
+          };
+     });
+}
+
+function applyResourcesToCategory(data: CategoryData, resources: ResourceDraft[]): CategoryData {
+     const cleanedResources = resources.filter((resource) => resource.title.trim() || resource.url.trim());
+
+     return {
+          ...data,
+          playlists: cleanedResources.map((resource) => ({
+               ...PLAYLIST_TEMPLATE,
+               title: resource.title || "Untitled Resource",
+               creator: resource.creator || resource.title || "Unknown",
+               url: resource.url,
+               description: resource.description || "",
+               language: "English",
+               difficulty: "beginner",
+               videoCount: 1,
+          })),
+          articles: cleanedResources.map((resource) => ({
+               title: resource.title || "Untitled Resource",
+               url: resource.url,
+          })),
+     };
+}
+
 // --- Main Page Component ---
 
 export default function EditDataPage() {
@@ -391,6 +555,14 @@ export default function EditDataPage() {
           if (!categoryData || !initialData) return false;
           return JSON.stringify(categoryData) !== JSON.stringify(initialData);
      }, [categoryData, initialData]);
+
+     const isResourceCategory = useMemo(() => (
+          categoryData ? RESOURCE_CATEGORY_SLUGS.has(categoryData.slug) : false
+     ), [categoryData]);
+
+     const resourceDrafts = useMemo(() => (
+          categoryData ? buildResourcesFromCategory(categoryData) : []
+     ), [categoryData]);
 
      const addToast = (text: string, type: 'success' | 'error') => {
           const id = Date.now();
@@ -427,8 +599,9 @@ export default function EditDataPage() {
           if (content) {
                try {
                     const parsed = JSON.parse(content);
-                    setCategoryData(parsed);
-                    setInitialData(parsed);
+                    const normalized = { ...parsed, articles: parsed.articles || [] };
+                    setCategoryData(normalized);
+                    setInitialData(normalized);
                } catch (error) {
                     console.error("Failed to parse file", error);
                     addToast("Failed to parse file content", 'error');
@@ -489,6 +662,42 @@ export default function EditDataPage() {
      const addPlaylist = () => {
           if (!categoryData) return;
           setCategoryData({ ...categoryData, playlists: [...categoryData.playlists, PLAYLIST_TEMPLATE] });
+     };
+
+     const handleArticleChange = (index: number, newArticle: Article) => {
+          if (!categoryData) return;
+          const newArticles = [...(categoryData.articles || [])];
+          newArticles[index] = newArticle;
+          setCategoryData({ ...categoryData, articles: newArticles });
+     };
+
+     const addArticle = () => {
+          if (!categoryData) return;
+          setCategoryData({ ...categoryData, articles: [...(categoryData.articles || []), ARTICLE_TEMPLATE] });
+     };
+
+     const deleteArticle = (index: number) => {
+          if (!categoryData) return;
+          const newArticles = (categoryData.articles || []).filter((_, i) => i !== index);
+          setCategoryData({ ...categoryData, articles: newArticles });
+     };
+
+     const handleResourceChange = (index: number, newResource: ResourceDraft) => {
+          if (!categoryData) return;
+          const updatedResources = [...resourceDrafts];
+          updatedResources[index] = newResource;
+          setCategoryData(applyResourcesToCategory(categoryData, updatedResources));
+     };
+
+     const addResource = () => {
+          if (!categoryData) return;
+          setCategoryData(applyResourcesToCategory(categoryData, [...resourceDrafts, RESOURCE_TEMPLATE]));
+     };
+
+     const deleteResource = (index: number) => {
+          if (!categoryData) return;
+          const updatedResources = resourceDrafts.filter((_, i) => i !== index);
+          setCategoryData(applyResourcesToCategory(categoryData, updatedResources));
      };
 
      const deletePlaylist = (index: number) => {
@@ -575,30 +784,89 @@ export default function EditDataPage() {
                                    {/* Left: Metadata */}
                                    <MetadataPanel data={categoryData} onChange={setCategoryData} />
 
-                                   {/* Right: Content (Playlists) */}
+                                   {/* Right: Content */}
                                    <div className={styles.contentPanel}>
-                                        <div className={styles.sectionHeader}>
-                                             <div className={styles.sectionTitle}>Playlists ({categoryData.playlists?.length || 0})</div>
-                                             <button className={styles.btnSecondary} onClick={addPlaylist}>+ Add Playlist</button>
-                                        </div>
+                                        {isResourceCategory ? (
+                                             <>
+                                                  <div className={styles.sectionHeader}>
+                                                       <div>
+                                                            <div className={styles.sectionTitle}>Resources ({resourceDrafts.length})</div>
+                                                            <div className={styles.headerBreadcrumbs} style={{ marginTop: '0.35rem', marginBottom: 0 }}>
+                                                                 Unified editor mode for resource-style categories
+                                                            </div>
+                                                       </div>
+                                                       <button className={styles.btnSecondary} onClick={addResource}>+ Add Resource</button>
+                                                  </div>
+                                                  <div className={styles.playlistGrid}>
+                                                       {resourceDrafts.map((resource, idx) => (
+                                                            <ResourceCard
+                                                                 key={`${resource.url}-${idx}`}
+                                                                 resource={resource}
+                                                                 onChange={(updated) => handleResourceChange(idx, updated)}
+                                                                 onDelete={() => deleteResource(idx)}
+                                                            />
+                                                       ))}
+                                                  </div>
+                                                  {resourceDrafts.length === 0 && (
+                                                       <div className={styles.emptyState}>
+                                                            <span className={styles.emptyIcon}>🛠️</span>
+                                                            <p>No resources yet.</p>
+                                                            <button className={styles.btnSecondary} style={{ marginTop: '1rem' }} onClick={addResource}>Create One</button>
+                                                       </div>
+                                                  )}
+                                             </>
+                                        ) : (
+                                             <>
+                                                  <div className={styles.sectionHeader}>
+                                                       <div className={styles.sectionTitle}>Playlists ({categoryData.playlists?.length || 0})</div>
+                                                       <button className={styles.btnSecondary} onClick={addPlaylist}>+ Add Playlist</button>
+                                                  </div>
 
-                                        <div className={styles.playlistGrid}>
-                                             {categoryData.playlists?.map((playlist, idx) => (
-                                                  <PlaylistCard
-                                                       key={idx}
-                                                       playlist={playlist}
-                                                       onChange={(p) => handlePlaylistChange(idx, p)}
-                                                       onDelete={() => deletePlaylist(idx)}
-                                                  />
-                                             ))}
-                                        </div>
+                                                  <div className={styles.playlistGrid}>
+                                                       {categoryData.playlists?.map((playlist, idx) => (
+                                                            <PlaylistCard
+                                                                 key={idx}
+                                                                 playlist={playlist}
+                                                                 onChange={(p) => handlePlaylistChange(idx, p)}
+                                                                 onDelete={() => deletePlaylist(idx)}
+                                                            />
+                                                       ))}
+                                                  </div>
 
-                                        {(!categoryData.playlists || categoryData.playlists.length === 0) && (
-                                             <div className={styles.emptyState}>
-                                                  <span className={styles.emptyIcon}>📭</span>
-                                                  <p>No playlists yet.</p>
-                                                  <button className={styles.btnSecondary} style={{ marginTop: '1rem' }} onClick={addPlaylist}>Create One</button>
-                                             </div>
+                                                  {(!categoryData.playlists || categoryData.playlists.length === 0) && (
+                                                       <div className={styles.emptyState}>
+                                                            <span className={styles.emptyIcon}>📭</span>
+                                                            <p>No playlists yet.</p>
+                                                            <button className={styles.btnSecondary} style={{ marginTop: '1rem' }} onClick={addPlaylist}>Create One</button>
+                                                       </div>
+                                                  )}
+
+                                                  <div className={styles.secondarySection}>
+                                                       <div className={styles.sectionHeader}>
+                                                            <div className={styles.sectionTitle}>Articles ({categoryData.articles?.length || 0})</div>
+                                                            <button className={styles.btnSecondary} onClick={addArticle}>+ Add Article</button>
+                                                       </div>
+
+                                                       <div className={styles.playlistGrid}>
+                                                            {categoryData.articles?.map((article, idx) => (
+                                                                 <ArticleCard
+                                                                      key={`${article.title}-${idx}`}
+                                                                      article={article}
+                                                                      onChange={(a) => handleArticleChange(idx, a)}
+                                                                      onDelete={() => deleteArticle(idx)}
+                                                                 />
+                                                            ))}
+                                                       </div>
+
+                                                       {(!categoryData.articles || categoryData.articles.length === 0) && (
+                                                            <div className={styles.emptyState}>
+                                                                 <span className={styles.emptyIcon}>📰</span>
+                                                                 <p>No articles yet.</p>
+                                                                 <button className={styles.btnSecondary} style={{ marginTop: '1rem' }} onClick={addArticle}>Create One</button>
+                                                            </div>
+                                                       )}
+                                                  </div>
+                                             </>
                                         )}
                                    </div>
                               </div>

@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { ContributorCard } from "@/components/ContributorCard";
+import BookLoader from "@/components/BookLoader/BookLoader";
+import type { LucideIcon } from "lucide-react";
 
 interface Contributor {
   login: string;
@@ -17,14 +19,29 @@ interface Contributor {
   isNew?: boolean;
 }
 
+interface ContributorFilterOption {
+  id: "all" | "new" | "top" | "owner";
+  label: string;
+  icon?: LucideIcon;
+  color?: string;
+}
+
 const REPO_OWNER = "Tanay2920003";
 const REPO_NAME = "Learning-hub";
+const FILTERS: ContributorFilterOption[] = [
+  { id: "all", label: "All" },
+  { id: "new", label: "New", icon: Rocket, color: "text-blue-400" },
+  { id: "top", label: "Top Contributors", icon: Trophy, color: "text-yellow-400" },
+  { id: "owner", label: "Owner", icon: ShieldAlert, color: "text-emerald-400" }
+] as const;
+
+type ContributorFilter = (typeof FILTERS)[number]["id"];
 
 export default function ContributorsPage() {
   const [contributors, setContributors] = useState<Contributor[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<"all" | "new" | "owner" | "top">("all");
+  const [activeFilter, setActiveFilter] = useState<ContributorFilter>("all");
   const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
@@ -52,7 +69,11 @@ export default function ContributorsPage() {
             ...c,
             isNew: recentAuthors.has(c.login) && c.contributions <= 5,
           }))
-          .sort((a: Contributor, b: Contributor) => b.contributions - a.contributions);
+          .sort((a: Contributor, b: Contributor) => {
+            if (a.login === REPO_OWNER) return 1;
+            if (b.login === REPO_OWNER) return -1;
+            return b.contributions - a.contributions;
+          });
 
         setContributors(processed);
       } catch (err) {
@@ -94,7 +115,7 @@ export default function ContributorsPage() {
               Open Source <span className="text-green-500">Contributors</span>
             </h1>
             <p className="text-lg text-slate-400 font-light">
-              Meet the amazing people building the best open-source learning resource.
+              Meet the contributors helping grow this open-source hub for learning, tools, and community projects. Want to be featured here too? Open a GitHub contribution and join the list.
             </p>
           </div>
           
@@ -118,16 +139,11 @@ export default function ContributorsPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {[
-              { id: "all", label: "All" },
-              { id: "new", label: "New", icon: Rocket, color: "text-blue-400" },
-              { id: "top", label: "Top Contributors", icon: Trophy, color: "text-yellow-400" },
-              { id: "owner", label: "Owner", icon: ShieldAlert, color: "text-emerald-400" }
-            ].map((filter) => (
+            {FILTERS.map((filter) => (
               <Button
                 key={filter.id}
                 variant={activeFilter === filter.id ? "secondary" : "outline"}
-                onClick={() => setActiveFilter(filter.id as any)}
+                onClick={() => setActiveFilter(filter.id)}
                 className={`rounded-full border-slate-800 ${activeFilter === filter.id ? 'bg-slate-800 text-white' : 'bg-transparent text-slate-400 hover:bg-slate-900'}`}
               >
                 {filter.icon && <filter.icon className={`mr-2 h-3.5 w-3.5 ${filter.color}`} />}
@@ -138,10 +154,8 @@ export default function ContributorsPage() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-pulse">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-64 bg-slate-900 rounded-xl border border-slate-800"></div>
-            ))}
+          <div className="flex min-h-[320px] items-center justify-center">
+            <BookLoader />
           </div>
         ) : (
           <>
@@ -168,4 +182,3 @@ export default function ContributorsPage() {
     </div>
   );
 }
-

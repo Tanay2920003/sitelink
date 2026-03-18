@@ -5,31 +5,49 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { PathContentView } from "@/components/PathContentView";
 import { PathSwitcher } from "@/components/PathSwitcher";
+import { getLearningPaths } from "@/lib/learning-paths";
 
 interface CategoryData {
     name: string;
     slug: string;
     description: string;
     icon: string;
-    playlists: any[];
-    articles: any[];
+    playlists: Playlist[];
+    articles?: Article[];
 }
 
+interface Playlist {
+    title: string;
+    creator: string;
+    url: string;
+    language: string;
+    difficulty: "beginner" | "intermediate" | "advanced";
+    videoCount: number;
+    description: string;
+    year: number;
+}
 
+interface Article {
+    title: string;
+    url: string;
+}
 
 async function getCategoryData(slug: string): Promise<CategoryData | null> {
     try {
         const filePath = path.join(process.cwd(), "data", `${slug}.json`);
         const fileContents = await fs.readFile(filePath, "utf8");
         return JSON.parse(fileContents);
-    } catch (error) {
+    } catch {
         return null;
     }
 }
 
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
     const resolvedParams = await params;
-    const data = await getCategoryData(resolvedParams.slug);
+    const [data, learningPaths] = await Promise.all([
+        getCategoryData(resolvedParams.slug),
+        getLearningPaths(),
+    ]);
 
     if (!data) {
         notFound();
@@ -45,7 +63,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
                         Back to paths
                     </Link>
 
-                    <PathSwitcher currentSlug={resolvedParams.slug} />
+                    <PathSwitcher currentSlug={resolvedParams.slug} paths={learningPaths} />
                 </div>
 
                 <div className="mb-10 md:mb-16 border-b border-slate-800/60 pb-8 md:pb-10">
@@ -64,7 +82,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
                     </p>
                 </div>
 
-                <PathContentView playlists={data.playlists} articles={data.articles || []} />
+                <PathContentView playlists={data.playlists} articles={data.articles || []} categorySlug={data.slug} />
 
             </main>
         </div>
