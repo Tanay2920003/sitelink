@@ -1,0 +1,116 @@
+{
+    "name": "Coding Languages",
+    "slug": "coding-languages",
+    "description": "Build strong programming fundamentals across popular languages like C, C++, Java, JavaScript, TypeScript, Python, Go, and Rust.",
+    "icon": "💻",
+    "articles": [
+        {
+            "title": "C: Learn-C.org Interactive Tutorial",
+            "url": "https://www.learn-c.org/"
+        },
+        {
+            "title": "Java: W3Schools Java Tutorials",
+            "url": "https://www.w3schools.com/java/"
+        },
+        {
+            "title": "Python: Official Python Tutorial",
+            "url": "https://docs.python.org/3/tutorial/"
+        },
+        {
+            "title": "Python: Automate the Boring Stuff",
+            "url": "https://automatetheboringstuff.com/"
+        },
+        {
+            "title": "C++: LearnCpp.com",
+            "url": "https://www.learncpp.com/"
+        },
+        {
+            "title": "JavaScript: JavaScript.info",
+            "url": "https://javascript.info/"
+        },
+        {
+            "title": "TypeScript: Official Handbook",
+            "url": "https://www.typescriptlang.org/docs/handbook/intro.html"
+        },
+        {
+            "title": "Go: A Tour of Go",
+            "url": "https://go.dev/tour/"
+        },
+        {
+            "title": "Rust: The Rust Programming Language",
+            "url": "https://doc.rust-lang.org/book/"
+        }
+    ],
+    "playlists": [
+        {
+            "title": "C Language Tutorial for Beginners",
+            "creator": "Apna College",
+            "url": "https://youtu.be/irqbmMNs2Bo?si=jiTnQMVjYwJnaEYI",
+            "language": "English, Hindi",
+            "difficulty": "beginner",
+            "videoCount": 10,
+            "description": "A beginner-friendly introduction to C programming fundamentals.",
+            "year": 2026
+        },
+        {
+            "title": "Java OneShot in 2 Hours",
+            "creator": "Apna College",
+            "url": "https://youtu.be/UmnCZ7-9yDY?si=FlK5apLkPP35JwdL",
+            "language": "English, Hindi",
+            "difficulty": "beginner",
+            "videoCount": 2,
+            "description": "A fast-track beginner course covering core Java concepts.",
+            "year": 2026
+        },
+        {
+            "title": "Python for Everybody",
+            "creator": "freeCodeCamp",
+            "url": "https://www.youtube.com/playlist?list=PLlRFEj9H3Oj7Bp8-DfGpfAfDBiblRfl5p",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 14,
+            "description": "A practical beginner-friendly Python series from the ground up.",
+            "year": 2020
+        },
+        {
+            "title": "Advanced Python",
+            "creator": "Tech With Tim",
+            "url": "https://www.youtube.com/playlist?list=PLzMcBGfZo4-kwmIcMDdXSuy_wSqtU-xDP",
+            "language": "English",
+            "difficulty": "advanced",
+            "videoCount": 17,
+            "description": "Advanced Python topics including generators, decorators, and more.",
+            "year": 2021
+        },
+        {
+            "title": "C++ Full Course for free",
+            "creator": "freeCodeCamp",
+            "url": "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A full beginner course that covers the foundations of modern C++.",
+            "year": 2019
+        },
+        {
+            "title": "JavaScript Full Course for Beginners",
+            "creator": "freeCodeCamp",
+            "url": "https://www.youtube.com/watch?v=PkZNo7MFNFg",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A complete beginner-friendly JavaScript course covering core language concepts.",
+            "year": 2018
+        },
+        {
+            "title": "TypeScript Course for Beginners",
+            "creator": "freeCodeCamp",
+            "url": "https://www.youtube.com/watch?v=30LWjhZzg50",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 1,
+            "description": "A practical introduction to TypeScript syntax, types, and tooling.",
+            "year": 2022
+        }
+    ]
+}

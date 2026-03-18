@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { PathContentView } from "@/components/PathContentView";
 import { PathSwitcher } from "@/components/PathSwitcher";
+import { getLearningPaths } from "@/lib/learning-paths";
 
 interface CategoryData {
     name: string;
@@ -43,7 +44,10 @@ async function getCategoryData(slug: string): Promise<CategoryData | null> {
 
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
     const resolvedParams = await params;
-    const data = await getCategoryData(resolvedParams.slug);
+    const [data, learningPaths] = await Promise.all([
+        getCategoryData(resolvedParams.slug),
+        getLearningPaths(),
+    ]);
 
     if (!data) {
         notFound();
@@ -59,7 +63,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
                         Back to paths
                     </Link>
 
-                    <PathSwitcher currentSlug={resolvedParams.slug} />
+                    <PathSwitcher currentSlug={resolvedParams.slug} paths={learningPaths} />
                 </div>
 
                 <div className="mb-10 md:mb-16 border-b border-slate-800/60 pb-8 md:pb-10">

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { ContributorCard } from "@/components/ContributorCard";
+import BookLoader from "@/components/BookLoader/BookLoader";
 import type { LucideIcon } from "lucide-react";
 
 interface Contributor {
@@ -149,10 +150,8 @@ export default function ContributorsPage() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-pulse">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-64 bg-slate-900 rounded-xl border border-slate-800"></div>
-            ))}
+          <div className="flex min-h-[320px] items-center justify-center">
+            <BookLoader />
           </div>
         ) : (
           <>
