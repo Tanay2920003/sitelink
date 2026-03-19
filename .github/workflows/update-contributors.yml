@@ -77,7 +77,8 @@ jobs:
             fs.writeFileSync(readmePath, updated);
 
       - name: Create contributors update pull request
-        uses: peter-evans/create-pull-request@v6
+        id: create_pr
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: docs: update contributors
@@ -86,3 +87,4 @@ jobs:
             This automated PR refreshes the contributors section in `README.md`.
           branch: chore/update-contributors
           delete-branch: true
+          labels: automerge,contributors,bot
