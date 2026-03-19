@@ -1,0 +1,89 @@
+name: Update Contributors
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-contributors:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Render contributors section
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const readmePath = 'README.md';
+            const startMarker = '<!-- CONTRIBUTORS:START -->';
+            const endMarker = '<!-- CONTRIBUTORS:END -->';
+
+            const contributors = await github.paginate(
+              github.rest.repos.listContributors,
+              {
+                owner,
+                repo,
+                per_page: 100,
+              }
+            );
+
+            const humans = contributors.filter((contributor) => contributor.type !== 'Bot');
+
+            const contributorMarkup = humans.length
+              ? [
+                  '<p align="center">',
+                  ...humans.map(
+                    (contributor) =>
+                      `  <a href="${contributor.html_url}" title="@${contributor.login}"><img src="${contributor.avatar_url}&s=72" width="72" height="72" alt="@${contributor.login}" /></a>`
+                  ),
+                  '</p>',
+                ].join('\n')
+              : '_No contributors found yet._';
+
+            const replacement = [
+              startMarker,
+              'Thank you to everyone helping improve Learning Hub. Want to be listed here too? Open a GitHub contribution and become part of the project.',
+              '',
+              '> **Note**: This section is refreshed automatically by GitHub Actions after merges to `main`.',
+              '',
+              contributorMarkup,
+              endMarker,
+            ].join('\n');
+
+            const readme = fs.readFileSync(readmePath, 'utf8');
+            const pattern = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, 'm');
+
+            if (!pattern.test(readme)) {
+              core.setFailed('Contributors markers were not found in README.md.');
+              return;
+            }
+
+            const updated = readme.replace(pattern, replacement);
+            fs.writeFileSync(readmePath, updated);
+
+      - name: Commit updated README
+        run: |
+          if git diff --quiet README.md; then
+            echo "No contributor changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: update contributors"
+          git push
