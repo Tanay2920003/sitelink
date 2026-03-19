@@ -119,18 +119,6 @@ Learning-hub/
 └── ...
 ```
 
-## ✨ Contributors
-
-<!-- CONTRIBUTORS:START -->
-Thank you to everyone helping improve Learning Hub. Want to be listed here too? Open a GitHub contribution and become part of the project.
-
-> **Note**: This section is refreshed automatically by GitHub Actions after merges to `main`.
-
-_Contributors will appear here after the workflow runs._
-<!-- CONTRIBUTORS:END -->
-
----
-
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
