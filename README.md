@@ -126,7 +126,7 @@ Thank you to everyone helping improve Learning Hub. Want to be listed here too? 
 > **Note**: The contributors image updates automatically when new contributors are added. It may take 5-10 minutes to refresh after a merge.
 
 <a href="https://github.com/Tanay2920003/Learning-hub/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Tanay2920003/Learning-hub&max=1000" alt="Contributors" />
+  <img src="https://contrib.rocks/image?repo=Tanay2920003/Learning-hub&max=1000&refresh=1" alt="Contributors" />
 </a>
 
 ---
