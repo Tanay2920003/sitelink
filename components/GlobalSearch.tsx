@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   ArrowUpRight,
   BookOpen,
@@ -43,8 +43,10 @@ function matchesQuery(item: GlobalSearchItem, query: string) {
 
 export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const hideFloatingTrigger = pathname === "/" || pathname === "/edit-data" || pathname === "/contributors"
 
   const closeSearch = () => {
     setOpen(false);
@@ -116,6 +118,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
 
   return (
     <>
+    {!hideFloatingTrigger && (
       <div className="fixed bottom-4 right-4 z-[70] sm:bottom-6 sm:right-6">
         <Button
           type="button"
@@ -131,6 +134,7 @@ export function GlobalSearch({ items }: { items: GlobalSearchItem[] }) {
           </span>
         </Button>
       </div>
+    )}
 
       {open && (
         <div

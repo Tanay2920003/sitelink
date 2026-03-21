@@ -24,9 +24,19 @@
             "url": "https://youtu.be/irqbmMNs2Bo?si=jiTnQMVjYwJnaEYI",
             "language": "English,Hindi",
             "difficulty": "beginner",
-            "videoCount": 10,
+            "videoCount": 1,
             "description": "",
-            "year": 2026
+            "year": 2022
+        },
+        {
+            "title": "Programming in C",
+            "creator": "Jenny's Lecture",
+            "url": "https://www.youtube.com/playlist?list=PLdo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S",
+            "language": "English",
+            "difficulty": "beginner",
+            "videoCount": 150,
+            "description": "",
+            "year": 2022
         }
     ]
 }
