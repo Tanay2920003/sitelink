@@ -1,24 +1,49 @@
 {
     "name": "Tools",
     "slug": "tools",
-    "description": "Explore useful tools and utility websites shared by contributors. Want to feature one here? Submit it through a contribution and we can add it.",
+    "description": "Explore useful tools and utility websites for CSE students and developers",
     "icon": "https://img.icons8.com/?size=100&id=ISeBB5SFp53c&format=png&color=000000",
     "articles": [
         {
-            "title": "ImageLocal",
-            "url": "https://imagelocal.site/"
+            "title": "Compiler Explorer",
+            "url": "https://godbolt.org/"
+        },
+        {
+            "title": "Regex101 - Regex Tester",
+            "url": "https://regex101.com/"
+        },
+        {
+            "title": "JSON Formatter",
+            "url": "https://jsonformatter.org/"
+        },
+        {
+            "title": "Base64 Encoder/Decoder",
+            "url": "https://www.base64encode.org/"
+        },
+        {
+            "title": "SQL Fiddle",
+            "url": "http://sqlfiddle.com/"
+        },
+        {
+            "title": "Draw.io - Flowchart Maker",
+            "url": "https://app.diagrams.net/"
+        },
+        {
+            "title": "Excalidraw - Virtual Whiteboard",
+            "url": "https://excalidraw.com/"
+        },
+        {
+            "title": "Carbon - Code Screenshot",
+            "url": "https://carbon.now.sh/"
+        },
+        {
+            "title": "GTmetrix - Website Performance",
+            "url": "https://gtmetrix.com/"
+        },
+        {
+            "title": "Can I Use - Browser Support",
+            "url": "https://caniuse.com/"
         }
     ],
-    "playlists": [
-        {
-            "title": "ImageLocal",
-            "creator": "ImageLocal",
-            "url": "https://imagelocal.site/",
-            "language": "English",
-            "difficulty": "beginner",
-            "videoCount": 1,
-            "description": "A useful web tool you can add to your developer toolkit.",
-            "year": 2026
-        }
-    ]
+    "playlists": []
 }
